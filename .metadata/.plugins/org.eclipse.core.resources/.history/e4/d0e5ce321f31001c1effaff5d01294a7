@@ -40,7 +40,7 @@ int main(void) {
 
 	do
 	{
-		utn_pedirIntAUsuarioConLimites(&menu, 0, 8, 3, "Ingrese Numero De la Opcion Deseada:\n1.-Alta Salon\n2.-Eliminar Salon\n3.-Ver Salones Ingresados\n4.-Incorporar Arcade \n5.-Modificar Arcade\n6.-Eliminar Arcade\n7.-Imprimir Arcades\n8.-Imprimir Juegos\n9.-Informes:", "Error");
+		utn_pedirIntAUsuarioConLimites(&menu, 0, 8, 3, "Ingrese Numero De la Opcion Deseada:\n1.-Alta Salon\n2.-Eliminar Salon\n3.-Ver Salones Ingresados\n4.-Incorporar Arcade \n5.- Modificar Arcade", "Error");
 		switch (menu) {
 			case 1:
 				switch (loadSalon(eSalones, SALONES_LEN))

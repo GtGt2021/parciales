@@ -12,7 +12,6 @@
 #include "salon.h"
 #include "arcade.h"
 #define OCUPADO 1
-#define OCUPADO 0
 
 int compararArcadeYSalon(eSalones salones, int len_salon, int idSalonArcade)
 {
