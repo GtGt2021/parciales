@@ -12,16 +12,16 @@
 #include "salon.h"
 #include "arcade.h"
 #define OCUPADO 1
-#define VACIO 0
-/*
+#define OCUPADO 0
+
 int compararArcadeYSalon(eSalones salones, int len_salon, int idSalonArcade)
 {
 	int retorno=-1;
-	for (int i=0; i<len_salon; i++)
+	for (int i=0; i<len_arcades; i++)
 	{
-		if(salones[i].isEmpty_salon==OCUPADO && salones[i].id_salon==idSalonArcade)
+		if(salones[i].id_salon==idSalonArcade)
 		{
-			salon_printPositionIdNombreDirTipo(&salones[i]);
+			print("")
 			retorno=0;
 		}
 	}
@@ -37,11 +37,10 @@ int imprimirTodoArcadeySalon(eSalones salones[], int len_salon, eArcades arcades
 	{
 		if(arcades[i].isEmpty_arcade==OCUPADO && arcade_printPosition(&arcades[i])==0)
 		{
-			arcade_printPosition(&arcades[i]);
 			compararArcadeYSalon(salones, len_salon, arcades[i].idSalon_arcade);
 			retorno=0;
 		}
 	}
 	return retorno;
 }
-*/
+

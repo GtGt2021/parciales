@@ -13,11 +13,11 @@
 #include "arcade.h"
 #define OCUPADO 1
 #define VACIO 0
-/*
+
 int compararArcadeYSalon(eSalones salones, int len_salon, int idSalonArcade)
 {
 	int retorno=-1;
-	for (int i=0; i<len_salon; i++)
+	for (int i=0; i<len_arcades; i++)
 	{
 		if(salones[i].isEmpty_salon==OCUPADO && salones[i].id_salon==idSalonArcade)
 		{
@@ -44,4 +44,4 @@ int imprimirTodoArcadeySalon(eSalones salones[], int len_salon, eArcades arcades
 	}
 	return retorno;
 }
-*/
+

@@ -1,11 +1,7 @@
-18:11:28 **** Incremental Build of configuration Debug for project parcial1 ****
+18:28:47 **** Incremental Build of configuration Debug for project parcial1 ****
 Info: Internal Builder is used for build
 gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\combinadas.o" "..\\src\\combinadas.c" 
-..\src\combinadas.c: In function 'imprimirTodoArcadeySalon':
-..\src\combinadas.c:18:1: warning: control reaches end of non-void function [-Wreturn-type]
-   18 | }
-      | ^
 gcc -o parcial1.exe "src\\arcade.o" "src\\combinadas.o" "src\\parcial1.o" "src\\salon.o" "src\\utn_validador.o" 
 
-18:11:29 Build Finished. 0 errors, 1 warnings. (took 880ms)
+18:28:48 Build Finished. 0 errors, 0 warnings. (took 737ms)
 

@@ -13,7 +13,7 @@
 #include "arcade.h"
 #define OCUPADO 1
 #define VACIO 0
-/*
+
 int compararArcadeYSalon(eSalones salones, int len_salon, int idSalonArcade)
 {
 	int retorno=-1;
@@ -44,4 +44,4 @@ int imprimirTodoArcadeySalon(eSalones salones[], int len_salon, eArcades arcades
 	}
 	return retorno;
 }
-*/
+

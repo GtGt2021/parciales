@@ -16,7 +16,6 @@
 #include "utn_validador.h"
 #include "salon.h"
 #include "arcade.h"
-#include "combinadas.h"
 #define SALONES_LEN 5
 #define ARCADES_LEN 1000
 #define CON_TIPO 1
@@ -170,6 +169,7 @@ int main(void) {
 				}
 				break;
 			case 6:
+				arcadePrintArcade(eArcades, ARCADES_LEN);
 
 				break;
 			default:
