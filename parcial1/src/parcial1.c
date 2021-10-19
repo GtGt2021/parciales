@@ -26,6 +26,8 @@ int main(void) {
 	setbuf(stdout,NULL);
 	eSalones eSalones[SALONES_LEN];
 	eArcades eArcades[ARCADES_LEN];
+	eJuegos juegos[ARCADES_LEN];
+
 	init_salones(eSalones, SALONES_LEN);
 	init_arcades(eArcades, ARCADES_LEN);
 	int menu;
@@ -63,10 +65,14 @@ int main(void) {
 				{
 					printSalon(eSalones, SALONES_LEN, SIN_TIPO);
 					if (utn_pedirIntPositivoAUsuario(&auxiliarBaja, 3, "Ingrese Id Salon que desea Eliminar", "Error")==0)
-					{
-						//FALTA COMPROBAR SI TIENE ARCADES Y DARLES DE BAJA
-						removeSalon(eSalones, SALONES_LEN, auxiliarBaja);
-						printf ("El Id %d, Fue eliminado Correctamente\n", auxiliarBaja);
+					{//pedi ID DE SALON
+						if (removeSalon(eSalones, SALONES_LEN, auxiliarBaja)==0)//AUXILIAR BAJA ES EL ID DEL SALON y
+						{
+
+							arcade_bajarArcadeById(eArcades, ARCADES_LEN, auxiliarBaja);//ENTRO EN ARCADE.C Y PONGO EN 0 LOS QUE TENGAN ESTE ID DE SALON
+							printf ("El Id %d, Fue eliminado Correctamente junto con sus arcades\n", auxiliarBaja);
+						}
+
 					}
 				}
 				else
@@ -93,7 +99,7 @@ int main(void) {
 						switch (arcade_loadArcade(eArcades, ARCADES_LEN, auxiliarAltaArca))
 						{
 						case 0:
-							printf("Salon Cargado Correctamente\n");
+							printf("Arcade Cargado Correctamente\n");
 							break;
 						case -1:
 							printf("Error al Ingresar Datos\n");
@@ -140,7 +146,8 @@ int main(void) {
 										}
 										break;
 									case 1:
-										arcadePrintArcadeGames(eArcades, ARCADES_LEN);
+										arcade_generarListaJuegos(eArcades, ARCADES_LEN, juegos, ARCADES_LEN);
+										arcadePrintArcadeGames(juegos, ARCADES_LEN);
 										if(utn_pedirNombreYApellidoAUsuario(juego, NOMBRE_LEN, 3, "Ingrese nuevo Juego", "Error")==0)
 										{
 											strncpy(eArcades[auxIndex].nombreJuego_arcade, juego, sizeof(eArcades->nombreJuego_arcade));
@@ -162,11 +169,16 @@ int main(void) {
 				}
 				break;
 			case 6:
+				arcadePrintArcade(eArcades, ARCADES_LEN);
 
 				break;
 			default:
 			case 7:
+				arcadePrintArcade(eArcades, ARCADES_LEN);
 				break;
+			case 8:
+				arcade_generarListaJuegos(eArcades, ARCADES_LEN, juegos, ARCADES_LEN);
+				arcadePrintArcadeGames(juegos, ARCADES_LEN);
 		}
 
 

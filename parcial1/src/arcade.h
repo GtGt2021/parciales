@@ -20,6 +20,11 @@ typedef struct{
 	int isEmpty_arcade;
 }eArcades;
 
+typedef struct{
+	char nombre[VIDEOJUEGO_LEN];
+	int isEmpty_juegos;
+}eJuegos;
+
 int init_arcades(eArcades list[], int len);
 int arcade_loadArcade(eArcades arcade[], int len, int idSalon);
 int arcade_IsFree(eArcades arcade[], int len, int *index);
@@ -28,5 +33,10 @@ int arcade_printPosition(eArcades arcade[]);
 int arcadePrintArcade(eArcades arcade[], int len);
 int arcade_findArcadeById(eArcades list[], int len, int idBuscado, int *posicionIdBuscado);
 int arcade_modificarLista(eArcades arcade[]);
-int arcadePrintArcadeGames(eArcades arcade[], int len);
+int arcadePrintArcadeGames(eJuegos juegos[], int len);
+int arcade_bajarArcadeById(eArcades list[], int len, int idBuscado);
+int init_juegos(eJuegos list[], int len);
+int arcade_buscarJuegoLista(eJuegos juegos[], int len, char nombreJuego[]);
+int arcade_generarListaJuegos(eArcades arcades[], int lenArcades, eJuegos juegos[],int lenJuegos);
+
 #endif

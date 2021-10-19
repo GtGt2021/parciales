@@ -48,6 +48,21 @@ int init_arcades(eArcades list[], int len)
 	return retorno;
 }
 
+int init_juegos(eJuegos list[], int len)
+{
+	int retorno=-1;
+	int i;
+	if(list!=NULL && len>0)
+	{
+
+		for(i=0; i<len; i++)
+		{
+			list[i].isEmpty_juegos=VACIO; // posicion Libre
+		}
+		retorno=0;
+	}
+	return retorno;
+}
 
 /**brief funcion sencilla que se dedica a pedir la info necesaria para cargar los campos de los empleados nombre apellido sector salario
  *
@@ -237,8 +252,10 @@ int arcadePrintArcade(eArcades arcade[], int len)
 	{
 		for (int i=0; i<len; i++)
 		{
-
+			if(arcade[i].isEmpty_arcade==OCUPADO)
+			{
 				arcade_printPosition(&arcade[i]);
+			}
 
 		}
 		retorno=0;
@@ -341,21 +358,89 @@ int arcadePrintArcade(eArcades arcade[], int len, int caso)
 }*/
 
 
-int arcadePrintArcadeGames(eArcades arcade[], int len)
+int arcadePrintArcadeGames(eJuegos juegos[], int len)
 {
 	int retorno=-1;
-	if (arcade!=NULL && len>0)
+	if (juegos!=NULL && len>0)
 	{
 		for (int i=0; i<len; i++)
 		{
-			if(arcade[i].isEmpty_arcade==OCUPADO)
+			if(juegos[i].isEmpty_juegos==OCUPADO)
 			{
-				printf("%s\n", arcade[i].nombreJuego_arcade);
+				printf("%s\n", juegos[i].nombre);
 				retorno=0;
-				break;
 			}
 		}
 		retorno=0;
+	}
+	return retorno;
+}
+
+int arcade_bajarArcadeById(eArcades list[], int len, int idBuscado)
+{
+	int retorno=-1;
+	if (list!=NULL && len>0 && idBuscado>0)
+	{
+		for(int i=0; i<len; i++)
+		{
+			if(list[i].isEmpty_arcade==OCUPADO && list[i].idSalon_arcade==idBuscado)
+			{
+				list[i].isEmpty_arcade=VACIO;
+				retorno=0;
+			}
+		}
+	}
+
+	return retorno;
+}
+/**brief verificamos que este OCUPADA la casilla isempty y comparamos el nombre de esa casilla nombrejuego
+ *param
+ *
+ *return 0 si encuentra un juego
+ */
+
+int arcade_buscarJuegoEnLista(eJuegos juegos[], int len, char nombreJuego [])
+{
+	int retorno=-2;
+	if (juegos!=NULL && len>0 && nombreJuego!=NULL)
+	{
+		retorno=-1;
+		for (int i=0; i<len; i++)
+		{
+			if(juegos[i].isEmpty_juegos==OCUPADO)
+			{
+				if(strncmp(juegos[i].nombre,nombreJuego,NOMBRE_LEN)==0)
+				{
+					retorno=0;
+					break;
+				}
+			}
+		}
+	}
+		return retorno;
+}
+
+int arcade_generarListaJuegos(eArcades arcades[], int lenArcades, eJuegos juegos[],int lenJuegos)
+{
+	int retorno=-1;
+	init_juegos(juegos, lenJuegos);
+	int indexJuegos=0;
+	if(arcades!=NULL && lenArcades>0 && juegos!=NULL && lenJuegos>0)
+	{
+		for(int i=0; i<lenArcades; i++)
+		{
+			if(arcades[i].isEmpty_arcade==OCUPADO)
+			{
+				if(arcade_buscarJuegoEnLista(juegos, lenJuegos, arcades[i].nombreJuego_arcade)==-1)
+				{
+					strncpy(juegos[indexJuegos].nombre,arcades[i].nombreJuego_arcade,NOMBRE_LEN);
+					juegos[indexJuegos].isEmpty_juegos=OCUPADO;
+					indexJuegos++;
+					retorno=0;
+				}
+			}
+		}
+
 	}
 	return retorno;
 }
