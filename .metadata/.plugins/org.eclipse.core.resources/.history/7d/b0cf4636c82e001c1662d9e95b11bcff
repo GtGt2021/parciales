@@ -1,0 +1,20 @@
+/*
+ * salon.h
+ *
+ *  Created on: 16 oct. 2021
+ *      Author: gt
+ */
+
+#ifndef SALON_H_
+#define SALON_H_
+
+typedef struct{
+	int sector_gen;
+	float salary_employee;
+	int id_employee;
+	char name_employee [];
+	char lastName_employee [];
+	int isEmpty_employee;
+}Salones;
+
+#endif /* SALON_H_ */

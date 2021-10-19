@@ -1,0 +1,19 @@
+/*
+ * salon.h
+ *
+ *  Created on: 16 oct. 2021
+ *      Author: gt
+ */
+
+#ifndef SALON_H_
+#define SALON_H_
+
+typedef struct{
+	int tipo_salon;
+	int id_salon;
+	char name_salon [];
+	char direccion_salon [];
+	int isEmpty_salon;
+}Salones;
+
+#endif /* SALON_H_ */

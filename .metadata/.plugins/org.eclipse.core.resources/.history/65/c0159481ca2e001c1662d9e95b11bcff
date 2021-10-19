@@ -1,0 +1,18 @@
+/*
+ * salon.c
+ *
+ *  Created on: 16 oct. 2021
+ *      Author: gt
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include "utn_validador.h"
+
+static int getId(void)
+{
+	static int counter=1;
+	return (counter++);
+}

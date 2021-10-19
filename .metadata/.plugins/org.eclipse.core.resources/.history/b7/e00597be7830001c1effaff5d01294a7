@@ -1,0 +1,127 @@
+/*
+ ============================================================================
+ Name        : parcial1.c
+ Author      : 
+ Version     :
+ Copyright   : Your copyright notice
+ Description : Hello World in C, Ansi-style
+ ============================================================================
+ */
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include "utn_validador.h"
+#include "salon.h"
+#include "arcade.h"
+#define SALONES_LEN 5
+#define ARCADES_LEN 1000
+#define CON_TIPO 1
+#define SIN_TIPO 2
+
+int main(void) {
+	setbuf(stdout,NULL);
+	eSalones eSalones[SALONES_LEN];
+	eArcades eArcades[ARCADES_LEN];
+	init_salones(eSalones, SALONES_LEN);
+	init_arcades(eArcades, ARCADES_LEN);
+	int menu;
+	int auxIndex;
+	int auxiliarBaja;
+	int auxiliarAltaArca;
+	//int auxId;
+
+	do
+	{
+		utn_pedirIntAUsuarioConLimites(&menu, 0, 8, 3, "Ingrese Numero De la Opcion Deseada:\n1.-Alta Salon\n2.-Eliminar Salon\n3.-Ver Salones Ingresados\n4.-Incorporar Arcade \n5.- Modificar Arcade", "Error");
+		switch (menu) {
+			case 1:
+				if (loadSalon(eSalones, SALONES_LEN)==0)
+				{
+					printf("Salon Cargado Correctamente\n");
+				}
+				else
+				{
+					if (loadSalon(eSalones, SALONES_LEN)==-1)
+					{
+						printf("Error al Ingresar Datos\n");
+					}
+					else
+					{
+						if (loadSalon(eSalones, SALONES_LEN)==-2)
+						{
+							printf("Memoria Llena\n");
+						}
+						else
+						{
+							printf("Error en el Archivo\n");
+						}
+					}
+				}
+				break;
+			case 2:
+				if(gen_verificarQueTieneDatosLista(eSalones, SALONES_LEN)==0)
+				{
+					printSalon(eSalones, SALONES_LEN, SIN_TIPO);
+					if (utn_pedirIntPositivoAUsuario(&auxiliarBaja, 3, "Ingrese Id Salon que desea Eliminar", "Error")==0)
+					{
+						//FALTA COMPROBAR SI TIENE ARCADES Y DARLES DE BAJA
+						removeSalon(eSalones, SALONES_LEN, auxiliarBaja);
+						printf ("El Id %d, Fue eliminado Correctamente\n", auxiliarBaja);
+					}
+				}
+				else
+				{
+					printf ("No hay Ningun Salon Cargado\n");
+				}
+				break;
+			case 3:
+				if(gen_verificarQueTieneDatosLista(eSalones, SALONES_LEN)==0)
+				{
+					printSalon(eSalones, SALONES_LEN, CON_TIPO);
+				}
+				else
+				{
+					printf ("No hay Ningun Salon Cargado\n");
+				}
+				break;
+			case 4:
+				if(gen_verificarQueTieneDatosLista(eSalones, SALONES_LEN)==0)
+				{
+					printSalon(eSalones, SALONES_LEN, 1);
+					if(utn_pedirIntPositivoAUsuario(&auxiliarAltaArca, 3, "Ingrese el Numero del Id Del Salon al Cual le quiere cargar el Arcade:\n", "Error")==0)
+					{
+						if(gen_verificarIdExiste(eSalones, SALONES_LEN, auxiliarAltaArca)==0)
+						{
+							arcade_loadArcade(eArcades, ARCADES_LEN, auxiliarAltaArca);
+						}
+						else
+						{
+							printf("Id no esta en la lista");
+						}
+					}
+
+				}
+
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			default:
+
+
+				break;
+		}
+
+
+	}while(menu!=0);
+
+
+
+
+
+	return EXIT_SUCCESS;
+}

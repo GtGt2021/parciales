@@ -1,0 +1,25 @@
+/*
+ * arcade.h
+ *
+ *  Created on: 16 oct. 2021
+ *      Author: gt
+ */
+
+#ifndef ARCADE_H_
+#define ARCADE_H_
+#define NACIONALIDAD_LEN 24
+#define VIDEOJUEGO_LEN 63
+typedef struct{
+	int tipo_salon;
+	int id_salon;
+	char nacionalidad [DIRECCION_LEN];
+	char direccion_salon [];
+	int isEmpty_salon;
+}eArcades;
+
+
+
+
+
+
+#endif

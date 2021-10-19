@@ -1,0 +1,42 @@
+/*
+ * arcade.c
+ *
+ *  Created on: 16 oct. 2021
+ *      Author: gt
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include "utn_validador.h"
+#define VACIO 0
+#define OCUPADO 1
+
+static int getId(void);
+
+/**brief nos genera un id nuevo consecutivo cuando se invoca ( en este caso comienza a partir del 1000 en adelante)
+ * param (no recibe nada)
+ * return retorna un entero positivo que se usa como id "SOLO PARA USAR EN ESTA BIBLIOTECA"
+ */
+static int getId(void)
+{
+	static int counter=1000;
+	return (counter++);
+}
+
+int init_salones(eArcades * list, int len)
+{
+	int retorno=-1;
+	int i;
+	if(list!=NULL && len>0)
+	{
+
+		for(i=0; i<len; i++)
+		{
+			list[i].isEmpty_arcade=VACIO; // posicion Libre
+		}
+		retorno=0;
+	}
+	return retorno;
+}

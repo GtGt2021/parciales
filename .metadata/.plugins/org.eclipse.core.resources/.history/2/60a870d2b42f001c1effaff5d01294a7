@@ -1,0 +1,60 @@
+/*
+ ============================================================================
+ Name        : parcial1.c
+ Author      : 
+ Version     :
+ Copyright   : Your copyright notice
+ Description : Hello World in C, Ansi-style
+ ============================================================================
+ */
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include "utn_validador.h"
+#include "salon.h"
+#include "arcade.h"
+#define SALONES_LEN 100
+#define ARCADES_LEN 1000
+
+int main(void) {
+	setbuf(stdout,NULL);
+	eSalones eSalones[SALONES_LEN];
+	eArcades eArcades[ARCADES_LEN];
+	init_salones(eSalones, SALONES_LEN);
+	init_arcades(eArcades, ARCADES_LEN);
+	int menu;
+
+	do
+	{
+		utn_pedirIntAUsuarioConLimites(&menu, 0, 8, 3, "Ingrese Numero del 1 al 8 segun lo que desee", "Error");
+		switch (menu) {
+			case 1:
+				if (loadSalon(eSalones, SALONES_LEN)==0)
+				{
+					printPosition(&eSalones[])
+				}
+				break;
+			case 2:
+
+				break;
+			case 3:
+
+				break;
+
+			default:
+
+				break;
+		}
+
+
+	}while(menu!=0);
+
+
+
+
+
+	return EXIT_SUCCESS;
+}
