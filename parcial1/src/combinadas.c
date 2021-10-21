@@ -383,12 +383,11 @@ int promedioArcadesSalon(eSalones salon[], int lenSalones, eArcades arcade[], in
 			contadorArcades++;
 		}
 	}
-	printf("Salones %d", contadorSalones);
-	printf("Arcades %d", contadorArcades);
+
 	divisor=contadorSalones;
 	total =contadorArcades/divisor;
 
-	printf("Hay %.2f arcades por cada Salon ", total);
+	printf("Hay %.2f arcades por cada Salon\n ", total);
 	return retorno;
 }
 

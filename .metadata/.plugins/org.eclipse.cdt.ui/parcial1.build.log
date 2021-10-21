@@ -1,1 +1,6 @@
-Info: Nothing to build for parcial1
+14:58:33 **** Incremental Build of configuration Debug for project parcial1 ****
+Info: Internal Builder is used for build
+gcc -o parcial1.exe "src\\arcade.o" "src\\combinadas.o" "src\\parcial1.o" "src\\salon.o" "src\\utn_validador.o" 
+
+14:58:33 Build Finished. 0 errors, 0 warnings. (took 478ms)
+

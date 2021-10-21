@@ -1,5 +1,3 @@
-14:52:31 **** Incremental Build of configuration Debug for project parcial1 ****
+14:58:33 **** Incremental Build of configuration Debug for project parcial1 ****
 Info: Internal Builder is used for build
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\combinadas.o" "..\\src\\combinadas.c" 
 gcc -o parcial1.exe "src\\arcade.o" "src\\combinadas.o" "src\\parcial1.o" "src\\salon.o" "src\\utn_validador.o" 
-Info: Nothing to build for parcial1
