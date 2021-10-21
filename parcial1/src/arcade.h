@@ -31,6 +31,7 @@ int arcade_IsFree(eArcades arcade[], int len, int *index);
 int arcade_verificarQueTieneDatosLista(eArcades arcade[], int len);
 int arcade_printPosition(eArcades arcade[]);
 int arcadePrintArcade(eArcades arcade[], int len);
+int arcade_darBajaArcade(eArcades arcade[]);
 int arcade_findArcadeById(eArcades list[], int len, int idBuscado, int *posicionIdBuscado);
 int arcade_modificarLista(eArcades arcade[]);
 int arcadePrintArcadeGames(eJuegos juegos[], int len);
@@ -38,5 +39,6 @@ int arcade_bajarArcadeById(eArcades list[], int len, int idBuscado);
 int init_juegos(eJuegos list[], int len);
 int arcade_buscarJuegoLista(eJuegos juegos[], int len, char nombreJuego[]);
 int arcade_generarListaJuegos(eArcades arcades[], int lenArcades, eJuegos juegos[],int lenJuegos);
+int arcade_altaForzada(eArcades arcades[], char nombre[], char nacionalidad[], int tipoSonido, int idSalon, int cantidadJugadores, int cantidadFichas);
 
 #endif

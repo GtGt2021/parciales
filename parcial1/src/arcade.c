@@ -116,6 +116,7 @@ int arcade_loadArcade(eArcades arcade[], int len, int idSalon)
 	{
 		if(arcade_IsFree(arcade, len, &index)==0)
 		{
+
 			if(arcade_getDataArcade(nombreJuego, NOMBRE_LEN, nacionalidad, NACIONALIDAD_LEN, &capacidadFichas, &tipoSonido, &cantidadJugadores)==0)
 			{
 				idArcade=getId();
@@ -227,11 +228,11 @@ int arcade_printPosition(eArcades arcade[])
 		{
 			if (arcade->tipoSonido_salon==STEREO)
 			{
-				printf("ID: %-3d Nacionalidad: %-10s Sonido: Stereo\t Cap. Fichas: %-3d Nombre Del Juego: %-10s Jugadores Max.:%d\t ID SALON: %d\n", arcade->id_arcade, arcade->nacionalidad_arcade, arcade->capacidadFichas_arcade, arcade->nombreJuego_arcade, arcade->cantidad_jugadores, arcade->idSalon_arcade);
+				printf("ID: %-3d Nacionalidad: %-10s Sonido: Stereo\t Cap. Fichas: %-3d Nombre Del Juego: %-15s Jugadores Max.:%-5d ID SALON: %d\n", arcade->id_arcade, arcade->nacionalidad_arcade, arcade->capacidadFichas_arcade, arcade->nombreJuego_arcade, arcade->cantidad_jugadores, arcade->idSalon_arcade);
 			}
 			else
 			{
-				printf("ID: %-3d Nacionalidad: %-10s Sonido: MONO\t Cap. Fichas: %-3d Nombre Del Juego: %-10s Jugadores Max.:%d\t ID SALON: %d\n", arcade->id_arcade, arcade->nacionalidad_arcade, arcade->capacidadFichas_arcade, arcade->nombreJuego_arcade, arcade->cantidad_jugadores, arcade->idSalon_arcade);
+				printf("ID: %-3d Nacionalidad: %-10s Sonido: MONO\t\t Cap. Fichas: %-3d Nombre Del Juego: %-15s Jugadores Max.:%-5d ID SALON: %d\n", arcade->id_arcade, arcade->nacionalidad_arcade, arcade->capacidadFichas_arcade, arcade->nombreJuego_arcade, arcade->cantidad_jugadores, arcade->idSalon_arcade);
 			}
 			retorno = 0;
 		}
@@ -393,6 +394,25 @@ int arcade_bajarArcadeById(eArcades list[], int len, int idBuscado)
 
 	return retorno;
 }
+
+/**brief recibimos una pocision del array tipo Arcades comprobamos que la posicion tenga el isEmpty OCUPADO y lo ponemos VACIO
+ * param arcade[pocision]
+ * return 0 si esta bien la baja y -1 si no se pudo
+ */
+
+int arcade_darBajaArcade(eArcades arcade[])
+{
+	int retorno=0;
+	if(arcade!=NULL)
+	{
+		if(arcade->isEmpty_arcade==OCUPADO)
+		{
+			arcade->isEmpty_arcade=VACIO;
+			retorno=0;
+		}
+	}
+		return retorno;
+}
 /**brief verificamos que este OCUPADA la casilla isempty y comparamos el nombre de esa casilla nombrejuego
  *param
  *
@@ -440,6 +460,28 @@ int arcade_generarListaJuegos(eArcades arcades[], int lenArcades, eJuegos juegos
 				}
 			}
 		}
+
+	}
+	return retorno;
+}
+
+
+int arcade_altaForzada(eArcades arcades[], char nombre[], char nacionalidad[],  int tipoSonido, int idSalon, int cantidadJugadores, int cantidadFichas)
+{
+	int retorno=-1;
+	if (arcades!=NULL && nombre!=NULL && nacionalidad!=NULL)
+	{
+
+
+			arcades->tipoSonido_salon=tipoSonido;
+			strncpy(arcades->nombreJuego_arcade, nombre, sizeof(arcades->nombreJuego_arcade));
+			strncpy(arcades->nacionalidad_arcade, nacionalidad, sizeof(arcades->nacionalidad_arcade));
+			arcades->isEmpty_arcade=OCUPADO;
+			arcades->id_arcade=getId();;
+			arcades->idSalon_arcade=idSalon;
+			arcades->cantidad_jugadores=cantidadJugadores;
+			arcades->capacidadFichas_arcade=cantidadFichas;
+			retorno=0;
 
 	}
 	return retorno;

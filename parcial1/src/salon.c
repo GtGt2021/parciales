@@ -211,7 +211,7 @@ int salon_printPositionIdNombreDir(eSalones salon[])
 	{
 		if(salon->isEmpty_salon==1)
 		{
-			printf("\nID: %d\t nombre: %-10s\t Direccion:%s\n\n",salon->id_salon,salon->name_salon,salon->direccion_salon);
+			printf("ID SALON: %d\t nombre: %-10s\t Direccion:%s\n",salon->id_salon,salon->name_salon,salon->direccion_salon);
 			retorno = 0;
 		}
 	}
@@ -232,11 +232,11 @@ int salon_printPositionIdNombreDirTipo(eSalones salon[])
 		{
 			if (salon->tipo_salon==LOCAL)
 			{
-				printf("\nID: %d\t nombre: %-10s\t Direccion:%-10s\t tipo: Local\n",salon->id_salon,salon->name_salon,salon->direccion_salon);
+				printf("\nID SALON: %d\t nombre: %-10s\t Direccion:%-10s\t tipo: Local\n",salon->id_salon,salon->name_salon,salon->direccion_salon);
 			}
 			else
 			{
-				printf("\nID: %d\t nombre: %-10s\t Direccion:%-10s\t tipo: Shopping\n",salon->id_salon,salon->name_salon,salon->direccion_salon);
+				printf("\nID SALON: %d\t nombre: %-10s\t Direccion:%-10s\t tipo: Shopping\n",salon->id_salon,salon->name_salon,salon->direccion_salon);
 			}
 
 			retorno = 0;
@@ -399,6 +399,23 @@ int gen_verificarIdExiste(eSalones salon[], int len, int idBuscado)
 		}
 	}
 
+	return retorno;
+}
+
+
+int Salon_altaForzada(eSalones salon[], char nombre[], char direccion[], int tipo)
+{
+	int retorno=-1;
+	if (salon!=NULL && nombre!=NULL && direccion!=NULL && tipo>0 && tipo<=2)
+	{
+			salon->tipo_salon=tipo;
+			strncpy(salon->name_salon, nombre, sizeof(salon->name_salon));
+			strncpy(salon->direccion_salon, direccion, sizeof(salon->direccion_salon));
+			salon->isEmpty_salon=OCUPADO;
+			salon->id_salon=getId();
+			retorno=0;
+
+	}
 	return retorno;
 }
 

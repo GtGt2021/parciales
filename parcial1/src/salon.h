@@ -30,5 +30,6 @@ int findSalonById(eSalones salon[], int len, int idBuscado, int *posicionIdBusca
 int removeSalon(eSalones salon[], int len, int idParaDarBaja);
 int salon_modificarLista(eSalones salon[]);
 int gen_verificarIdExiste(eSalones salon[], int len, int idBuscado);
+int Salon_altaForzada(eSalones salon[], char nombre[], char direccion[], int tipo);
 
 #endif /* SALON_H_ */
