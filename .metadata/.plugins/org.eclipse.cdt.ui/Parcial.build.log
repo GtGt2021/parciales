@@ -1,1 +1,16 @@
-Info: Nothing to build for Parcial
+14:03:41 **** Rebuild of configuration Debug for project Parcial ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\utn_validador.o" "..\\src\\utn_validador.c" 
+..\src\utn_validador.c:419:12: error: conflicting types for 'utn_obtenerLetras'
+  419 | static int utn_obtenerLetras(char cadena[], int len)
+      |            ^~~~~~~~~~~~~~~~~
+..\src\utn_validador.c:30:12: note: previous declaration of 'utn_obtenerLetras' was here
+   30 | static int utn_obtenerLetras(char cadena[]);
+      |            ^~~~~~~~~~~~~~~~~
+..\src\utn_validador.c: In function 'utn_pedirLetrasAUsuario':
+..\src\utn_validador.c:598:85: error: expected ')' before 'len'
+  598 |  if(cadena != NULL && reintentos >=0 && variableTexto != NULL && textoError != NULL len>0)
+      |    ~                                                                                ^~~
+
+14:03:42 Build Failed. 2 errors, 0 warnings. (took 422ms)
+

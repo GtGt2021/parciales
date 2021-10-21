@@ -47,7 +47,7 @@ int main(void) {
 	float precioFicha;
 	//int auxId;
 
-	Salon_altaForzada(&eSalones[15], "BUENAVENTURA", "GUATIRE", LOCAL);
+					Salon_altaForzada(&eSalones[15], "BUENAVENTURA", "GUATIRE", LOCAL);
 					Salon_altaForzada(&eSalones[90], "SAMBIL", "CARACAS", SHOPPING);
 					Salon_altaForzada(&eSalones[91], "BUENAVENTURA", "GUATIRE", SHOPPING);
 					Salon_altaForzada(&eSalones[92], "SAMBIL", "CARACAS", LOCAL);
@@ -65,6 +65,7 @@ int main(void) {
 					Salon_altaForzada(&eSalones[28], "SAMBIL", "CARACAS", LOCAL);
 					Salon_altaForzada(&eSalones[70], "BUENAVENTURA", "GUATIRE", SHOPPING);
 					Salon_altaForzada(&eSalones[45], "SAMBIL", "GUATIRE", SHOPPING);
+
 
 					arcade_altaForzada(&eArcades[100], "Mortal Combat", "panama", 	STEREO, 2, 6, 12);
 					arcade_altaForzada(&eArcades[101], "Mortal CHAM", "China", 		MONO, 6, 6, 12);
@@ -281,14 +282,32 @@ int main(void) {
 					}
 				break;
 			case 9:
-				if(utn_pedirIntAUsuarioConLimites(&auxMenu, 1, 7, 3, "ingrese 1-2-3-4-5-6-7", "ERROR")==0)//utn_PedirCualquierCaracterAUsuario(respuesta, 2, 3, "ingrese A-B-C-D-E-F-G", "ERROR")==0)
+				if(utn_pedirIntAUsuarioConLimites(&auxMenu, 1, 9, 3, "ingrese 1-2-3-4-5-6-7-8-9", "ERROR")==0)//utn_PedirCualquierCaracterAUsuario(respuesta, 2, 3, "ingrese A-B-C-D-E-F-G", "ERROR")==0)
 				{
 					switch (auxMenu)
 					{
 						case 1:
-							ContadorArcadesEnSalones(eSalones, SALONES_LEN, eArcades, ARCADES_LEN);
+							if(gen_verificarQueTieneDatosLista(eSalones, SALONES_LEN)==0)
+							{
+								if(arcade_verificarQueTieneDatosLista(eArcades, ARCADES_LEN)==0)
+								{
+									if(ContadorArcadesEnSalones(eSalones, SALONES_LEN, eArcades, ARCADES_LEN)!=0)
+									{
+										printf("No hay salones con mas de 4 arcades");
+									}
+								}
+								else
+								{
+									printf("No hay arcades en este Salon");
+								}
+							}
+							else
+							{
+								printf("no hay Salones\n");
+							}
+							break;
 						case 2:
-							if(arcadesDosOMasJugadores(eSalones, SALONES_LEN, eArcades, ARCADES_LEN)==-1)
+							if(arcadesDosOMasJugadores(eSalones, SALONES_LEN, eArcades, ARCADES_LEN)!=0)
 							{
 								printf("No hay Arcade para mas de 2 jugadores");
 							}
@@ -306,10 +325,21 @@ int main(void) {
 						case 4:
 							if(gen_verificarQueTieneDatosLista(eSalones, SALONES_LEN)==0)
 							{
-								if(utn_pedirIntPositivoAUsuario(&auxiliarAltaArca, 3, "Ingrese ID Salon para ver ARcades", "Error")==0)
+								if(arcade_verificarQueTieneDatosLista(eArcades, ARCADES_LEN)==0)
 								{
-								listarArcadesDeUnSalon(eSalones, SALONES_LEN, auxiliarAltaArca, eArcades, ARCADES_LEN);
+									if(utn_pedirIntPositivoAUsuario(&auxiliarAltaArca, 3, "Ingrese ID Salon para ver ARcades", "Error")==0)
+									{
+										listarArcadesDeUnSalon(eSalones, SALONES_LEN, auxiliarAltaArca, eArcades, ARCADES_LEN);
+									}
 								}
+								else
+								{
+									printf("No hay arcades en este Salon");
+								}
+							}
+							else
+							{
+								printf("no hay Salones\n");
 							}
 
 							break;
@@ -343,14 +373,20 @@ int main(void) {
 								cantidad=arcade_buscarJuegoEnListayContarArcades(eArcades, ARCADES_LEN, juego);
 								if (cantidad>0)
 								{
-									printf("El juego esta en %d Arcades", cantidad);
+									printf("El juego esta en %d Arcades\n", cantidad);
 								}
 								else
 								{
-									printf("el juego no esta en la lista");
+									printf("el juego no esta en la lista\n");
 								}
 							}
 
+							break;
+						case 8:
+							ContadorArcadesMas8(eSalones, SALONES_LEN, eArcades, ARCADES_LEN);
+							break;
+						case 9:
+							promedioArcadesSalon(eSalones, SALONES_LEN, eArcades, ARCADES_LEN);
 							break;
 					}
 				}
