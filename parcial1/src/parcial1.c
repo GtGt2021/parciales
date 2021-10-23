@@ -25,7 +25,7 @@
 #define STEREO 1
 #define SHOPPING 1
 #define LOCAL 2
-#define NOMBREGAME_LEN 64
+#define NOMBREGAME_LEN 63
 
 
 
@@ -44,6 +44,7 @@ int main(void) {
 	int auxiliarBaja;
 	int auxiliarAltaArca;
 	char respuesta[2];
+	float promedioSalonArca;
 	float precioFicha;
 	//int auxId;
 
@@ -56,7 +57,7 @@ int main(void) {
 					Salon_altaForzada(&eSalones[95], "SAMBIL", "CARACAS", LOCAL);
 					Salon_altaForzada(&eSalones[96], "BUENAVENTURA", "GUATIRE", SHOPPING);
 					Salon_altaForzada(&eSalones[98], "SAMBIL", "GUATIRE", SHOPPING);
-					Salon_altaForzada(&eSalones[15], "BUENAVENTURA", "GUATIRE", LOCAL);
+					Salon_altaForzada(&eSalones[65], "BUENAVENTURA", "GUATIRE", LOCAL);
 					Salon_altaForzada(&eSalones[25], "SAMBIL", "CARACAS", SHOPPING);
 					Salon_altaForzada(&eSalones[12], "BUENAVENTURA", "GUATIRE", SHOPPING);
 					Salon_altaForzada(&eSalones[89], "SAMBIL", "CARACAS", LOCAL);
@@ -70,30 +71,57 @@ int main(void) {
 					arcade_altaForzada(&eArcades[100], "Mortal Combat", "panama", 	STEREO, 2, 6, 12);
 					arcade_altaForzada(&eArcades[101], "Mortal CHAM", "China", 		MONO, 6, 6, 12);
 					arcade_altaForzada(&eArcades[102], "Mortal Combat", "colombia", MONO, 6, 6, 12);
-					arcade_altaForzada(&eArcades[105], "Mortal cash", "China", 		STEREO, 3, 6, 12);
-					arcade_altaForzada(&eArcades[110], "fith Combat", "panama",		 MONO, 5, 6, 12);
-					arcade_altaForzada(&eArcades[114], "pulpo Combat", "colombia",	 STEREO, 5, 6, 12);
-					arcade_altaForzada(&eArcades[125], "Mortal Combat", "panama",	 MONO, 5, 6, 12);
-					arcade_altaForzada(&eArcades[198], "mortadela Combat", "colombia", STEREO, 5, 3, 12);
-					arcade_altaForzada(&eArcades[200], "Mortal Combat", "China",	 MONO, 6, 2, 12);
-					arcade_altaForzada(&eArcades[210], "Mortal Combat", "panama",	 STEREO, 6, 6, 12);
-					arcade_altaForzada(&eArcades[211], "Mortal CHAM", "China", 		MONO, 6, 1, 12);
-					arcade_altaForzada(&eArcades[241], "Mortal Combat", "colombia", MONO, 4, 6, 12);
-					arcade_altaForzada(&eArcades[256], "Mortal cash", "China", 		STEREO, 4, 1, 12);
-					arcade_altaForzada(&eArcades[300], "fith Combat", "panama",		 MONO, 3, 6, 12);
-					arcade_altaForzada(&eArcades[301], "pulpo Combat", "colombia",	 STEREO, 3, 1, 12);
-					arcade_altaForzada(&eArcades[302], "Mortal Combat", "panama",	 MONO, 3, 6, 12);
-					arcade_altaForzada(&eArcades[303], "mortadela Combat", "colombia", STEREO, 1, 6, 12);
-					arcade_altaForzada(&eArcades[304], "Mortal Combat", "China",	 MONO, 2, 6, 12);
-					arcade_altaForzada(&eArcades[305], "Mortal Combat", "panama", 	STEREO, 6, 1, 12);
-					arcade_altaForzada(&eArcades[306], "Mortal CHAM", "China", 		MONO, 6, 3, 12);
-					arcade_altaForzada(&eArcades[307], "Mortal Combat", "colombia", MONO, 4, 1, 12);
-					arcade_altaForzada(&eArcades[308], "Mortal cash", "China", 		STEREO, 6, 6, 12);
-					arcade_altaForzada(&eArcades[309], "fith Combat", "panama", 	MONO, 2, 1, 12);
-					arcade_altaForzada(&eArcades[310], "pulpo Combat", "colombia",	 STEREO, 4, 8, 12);
-					arcade_altaForzada(&eArcades[311], "Mortal Combat", "panama",	 MONO, 5, 3, 12);
-					arcade_altaForzada(&eArcades[312], "mortadela Combat", "colombia", STEREO, 8, 2, 12);
-					arcade_altaForzada(&eArcades[313], "Mortal Combat", "China", 	MONO, 9, 1, 12);
+					arcade_altaForzada(&eArcades[103], "Mortal cash", "China", 		STEREO, 3, 6, 12);
+					arcade_altaForzada(&eArcades[104], "fith Combat", "panama",		 MONO, 5, 6, 12);
+					arcade_altaForzada(&eArcades[105], "pulpo Combat", "colombia",	 STEREO, 5, 6, 12);
+					arcade_altaForzada(&eArcades[106], "Mortal Combat", "panama",	 MONO, 5, 6, 12);
+					arcade_altaForzada(&eArcades[107], "mortadela Combat", "colombia", STEREO, 5, 3, 12);
+					arcade_altaForzada(&eArcades[108], "Mortal Combat", "China",	 MONO, 6, 2, 12);
+					arcade_altaForzada(&eArcades[109], "Mortal Combat", "panama",	 STEREO, 6, 6, 12);
+					arcade_altaForzada(&eArcades[110], "Mortal CHAM", "China", 		MONO, 6, 1, 12);
+					arcade_altaForzada(&eArcades[111], "Mortal Combat", "colombia", MONO, 4, 6, 12);
+					arcade_altaForzada(&eArcades[112], "Mortal cash", "China", 		STEREO, 4, 1, 12);
+					arcade_altaForzada(&eArcades[113], "fith Combat", "panama",		 MONO, 3, 6, 12);
+					arcade_altaForzada(&eArcades[114], "pulpo Combat", "colombia",	 STEREO, 3, 1, 12);
+					arcade_altaForzada(&eArcades[115], "Mortal Combat", "panama",	 MONO, 3, 6, 12);
+					arcade_altaForzada(&eArcades[116], "mortadela Combat", "colombia", STEREO, 1, 6, 12);
+					arcade_altaForzada(&eArcades[117], "Mortal Combat", "China",	 MONO, 2, 6, 12);
+					arcade_altaForzada(&eArcades[118], "Mortal Combat", "panama", 	STEREO, 6, 1, 12);
+					arcade_altaForzada(&eArcades[119], "Mortal CHAM", "China", 		MONO, 6, 3, 12);
+					arcade_altaForzada(&eArcades[120], "Mortal Combat", "colombia", MONO, 4, 1, 12);
+					arcade_altaForzada(&eArcades[121], "Mortal cash", "China", 		STEREO, 6, 6, 12);
+					arcade_altaForzada(&eArcades[122], "fith Combat", "panama", 	MONO, 2, 1, 12);
+					arcade_altaForzada(&eArcades[123], "pulpo Combat", "colombia",	 STEREO, 4, 8, 12);
+					arcade_altaForzada(&eArcades[124], "Mortal Combat", "panama",	 MONO, 5, 3, 12);
+					arcade_altaForzada(&eArcades[125], "mortadela Combat", "colombia", STEREO, 8, 2, 12);
+					arcade_altaForzada(&eArcades[126], "Mortal Combat", "China", 	MONO, 9, 1, 12);
+					arcade_altaForzada(&eArcades[200], "Mortal Combat", "panama", 	STEREO, 2, 6, 12);
+					arcade_altaForzada(&eArcades[201], "Mortal CHAM", "China", 		MONO, 6, 6, 12);
+					arcade_altaForzada(&eArcades[202], "Mortal Combat", "colombia", MONO, 6, 6, 12);
+					arcade_altaForzada(&eArcades[203], "Mortal cash", "China", 		STEREO, 3, 6, 12);
+					arcade_altaForzada(&eArcades[204], "fith Combat", "panama",		 MONO, 5, 6, 12);
+					arcade_altaForzada(&eArcades[205], "pulpo Combat", "colombia",	 STEREO, 5, 6, 12);
+					arcade_altaForzada(&eArcades[206], "Mortal Combat", "panama",	 MONO, 5, 6, 12);
+					arcade_altaForzada(&eArcades[207], "mortadela Combat", "colombia", STEREO, 5, 3, 12);
+					arcade_altaForzada(&eArcades[208], "Mortal Combat", "China",	 MONO, 6, 2, 12);
+					arcade_altaForzada(&eArcades[209], "Mortal Combat", "panama",	 STEREO, 6, 6, 12);
+					arcade_altaForzada(&eArcades[210], "Mortal CHAM", "China", 		MONO, 6, 1, 12);
+					arcade_altaForzada(&eArcades[211], "Mortal Combat", "colombia", MONO, 4, 6, 12);
+					arcade_altaForzada(&eArcades[212], "Mortal cash", "China", 		STEREO, 4, 1, 12);
+					arcade_altaForzada(&eArcades[213], "fith Combat", "panama",		 MONO, 3, 6, 12);
+					arcade_altaForzada(&eArcades[214], "pulpo Combat", "colombia",	 STEREO, 3, 1, 12);
+					arcade_altaForzada(&eArcades[215], "Mortal Combat", "panama",	 MONO, 3, 6, 12);
+					arcade_altaForzada(&eArcades[216], "mortadela Combat", "colombia", STEREO, 1, 6, 12);
+					arcade_altaForzada(&eArcades[217], "Mortal Combat", "China",	 MONO, 2, 6, 12);
+					arcade_altaForzada(&eArcades[218], "Mortal Combat", "panama", 	STEREO, 6, 1, 12);
+					arcade_altaForzada(&eArcades[219], "Mortal CHAM", "China", 		MONO, 6, 3, 12);
+					arcade_altaForzada(&eArcades[220], "Mortal Combat", "colombia", MONO, 4, 1, 12);
+					arcade_altaForzada(&eArcades[221], "Mortal cash", "China", 		STEREO, 6, 6, 12);
+					arcade_altaForzada(&eArcades[222], "fith Combat", "panama", 	MONO, 2, 1, 12);
+					arcade_altaForzada(&eArcades[223], "pulpo Combat", "colombia",	 STEREO, 4, 8, 12);
+					arcade_altaForzada(&eArcades[224], "Mortal Combat", "panama",	 MONO, 5, 3, 12);
+					arcade_altaForzada(&eArcades[225], "mortadela Combat", "colombia", STEREO, 8, 2, 12);
+					arcade_altaForzada(&eArcades[226], "Mortal Combat", "China", 	MONO, 9, 1, 12);
 
 
 
@@ -298,7 +326,7 @@ int main(void) {
 								}
 								else
 								{
-									printf("No hay arcades en este Salon");
+									printf("No hay arcades Cargados en Ningun Salon");
 								}
 							}
 							else
@@ -307,19 +335,34 @@ int main(void) {
 							}
 							break;
 						case 2:
-							if(arcadesDosOMasJugadores(eSalones, SALONES_LEN, eArcades, ARCADES_LEN)!=0)
+							if(arcade_verificarQueTieneDatosLista(eArcades, ARCADES_LEN)==0)
 							{
-								printf("No hay Arcade para mas de 2 jugadores");
-							}
-							break;
-						case 3:
-							if(utn_pedirIntPositivoAUsuario(&auxiliarAltaArca, 3, "Ingrese el Id Salon Para Ver su Informacion", "Error")==0)
-							{
-								listarInformacionSalonEspecifico(eSalones, SALONES_LEN, auxiliarAltaArca, eArcades, ARCADES_LEN);
+								if(arcadesDosOMasJugadores(eSalones, SALONES_LEN, eArcades, ARCADES_LEN)!=0)
+								{
+									printf("No hay Arcade para mas de 2 jugadores");
+								}
+
 							}
 							else
 							{
-								printf("Id no existe\n");
+								printf("no tenemos Arcades");
+							}
+							break;
+						case 3:
+							if(printSalon(eSalones, SALONES_LEN, 1)==0)
+							{
+								if(utn_pedirIntPositivoAUsuario(&auxiliarAltaArca, 3, "Ingrese el Id Salon Para Ver su Informacion", "Error")==0)
+								{
+									listarInformacionSalonEspecifico(eSalones, SALONES_LEN, auxiliarAltaArca, eArcades, ARCADES_LEN);
+								}
+								else
+								{
+									printf("Id no existe\n");
+								}
+							}
+							else
+							{
+								printf("No tenemos Salones Cargados");
 							}
 							break;
 						case 4:
@@ -348,45 +391,80 @@ int main(void) {
 							imprimirSalonMasArcades(eArcades, ARCADES_LEN, eSalones, SALONES_LEN);
 							break;
 						case 6:
-							if(gen_verificarQueTieneDatosLista(eSalones, SALONES_LEN)==0)
+							if(printSalon(eSalones, SALONES_LEN, 2)==0)
 							{
-								printSalon(eSalones, SALONES_LEN, 1);
-								if(utn_pedirIntPositivoAUsuario(&auxiliarAltaArca, 3, "Ingrese ID para calcular Facturacion Maxima", "Error")==0 && utn_pedirFloatPositivoAUsuario(&precioFicha, 3, "Ingrese Precio Ficha", "Error")==0)
+								if(utn_pedirIntPositivoAUsuario(&auxiliarAltaArca, 3, "Ingrese ID del Salon para calcular Facturacion Maxima", "Error ")==0)
 								{
 									if(findSalonById(eSalones, SALONES_LEN, auxiliarAltaArca, &auxIndex)==0)
 									{
-										montoMaximoRecaudacion(eArcades, ARCADES_LEN, eSalones, SALONES_LEN, auxIndex, precioFicha);
+										if(utn_pedirFloatPositivoAUsuario(&precioFicha, 3, "Ingrese Precio Ficha\n", "Error")==0)
+										{
+											montoMaximoRecaudacion(eArcades, ARCADES_LEN, eSalones, SALONES_LEN, auxIndex, precioFicha);
+										}
+										else
+										{
+											printf ("Error volvemos al menu inicial\n");
+										}
+
 									}
 									else
 									{
 										printf("No existe salon con este ID\n");
 									}
 								}
-							}else
-							{
-								printf("No hay Salones Ingresados\n");
-							}
-							break;
-						case 7:
-							if (utn_pedirNombreYApellidoAUsuario(juego, NOMBREGAME_LEN, 3, "Ingrese Nombre Juego (DISTINGUE MAYUSCULA Y MINUSCULA)", "Error")==0)
-							{
-								cantidad=arcade_buscarJuegoEnListayContarArcades(eArcades, ARCADES_LEN, juego);
-								if (cantidad>0)
-								{
-									printf("El juego esta en %d Arcades\n", cantidad);
-								}
 								else
 								{
-									printf("el juego no esta en la lista\n");
+									printf("No hay Salones Ingresados\n");
+								}
+							}
+							else
+							{
+								printf("No Hay Salones, Chao...");
+							}
+
+							break;
+						case 7:
+							if (arcade_verificarQueTieneDatosLista(eArcades, ARCADES_LEN)==0)
+							{
+								if (utn_pedirNombreYApellidoAUsuario(juego, NOMBREGAME_LEN, 3, "Ingrese Nombre Juego (DISTINGUE MAYUSCULA Y MINUSCULA)", "Error, ")==0)
+									{
+										cantidad=arcade_buscarJuegoEnListayContarArcades(eArcades, ARCADES_LEN, juego);
+										if (cantidad>0)
+										{
+											printf("El juego esta en %d Arcades\n", cantidad);
+										}
+										else
+										{
+											printf("el juego no esta en la lista\n");
+										}
+									}
+							}
+							else
+							{
+								printf("No tienes Juegos Cargados porque no tienes ningun arcade");
+							}
+							break;
+						case 8:
+							if (gen_verificarQueTieneDatosLista(eSalones, SALONES_LEN)==0)
+							{
+								if (ContadorArcadesMas8(eSalones, SALONES_LEN, eArcades, ARCADES_LEN)<0)
+								{
+									printf("No Tienes Salones Con Mas de 8 Arcades y 2 o mas jugadores");
 								}
 							}
 
 							break;
-						case 8:
-							ContadorArcadesMas8(eSalones, SALONES_LEN, eArcades, ARCADES_LEN);
-							break;
 						case 9:
-							promedioArcadesSalon(eSalones, SALONES_LEN, eArcades, ARCADES_LEN);
+
+							if (promedioArcadesSalon(eSalones, SALONES_LEN, eArcades, ARCADES_LEN, &promedioSalonArca)==0)
+							{
+								printf("El promedio de Arcades por Salon es de %.2f", promedioSalonArca);
+							}
+							else
+							{
+								printf("No tenemos Arcades");
+							}
+
 							break;
 					}
 				}

@@ -24,5 +24,5 @@ int imprimirSalonMasArcades(eArcades arcade[], int lenArcade, eSalones salon[], 
 int montoMaximoRecaudacion(eArcades arcade[], int lenArcade, eSalones salon[], int lenSalon, int indexSalon, float precioFicha);
 int arcade_buscarJuegoEnListayContarArcades(eArcades juegos[], int len, char nombreJuego []);
 int ContadorArcadesMas8(eSalones salon[], int lenSalon, eArcades arcade[], int lenArcade);
-int promedioArcadesSalon(eSalones salon[], int lenSalones, eArcades arcade[], int lenArcades);
+int promedioArcadesSalon(eSalones salon[], int lenSalones, eArcades arcade[], int lenArcades, float *promedio);
 #endif /* COMBINADAS_H_ */

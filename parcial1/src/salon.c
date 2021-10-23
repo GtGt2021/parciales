@@ -257,17 +257,21 @@ int printSalon(eSalones salon[], int len, int caso)
 	{
 		for (int i=0; i<len; i++)
 		{
-			if (caso==2)
+			if(salon[i].isEmpty_salon==OCUPADO)
 			{
-				salon_printPositionIdNombreDir(&salon[i]);
-			}
-			else
-			{
-				salon_printPositionIdNombreDirTipo(&salon[i]);
+				if (caso==2)
+				{
+					salon_printPositionIdNombreDir(&salon[i]);
+				}
+				else
+				{
+					salon_printPositionIdNombreDirTipo(&salon[i]);
+				}
+				retorno=0;
 			}
 
 		}
-		retorno=0;
+
 	}
 	return retorno;
 }

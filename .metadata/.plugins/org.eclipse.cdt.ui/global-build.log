@@ -1,3 +1,13 @@
-14:58:33 **** Incremental Build of configuration Debug for project parcial1 ****
+11:48:47 **** Incremental Build of configuration Debug for project parcial1 ****
 Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\parcial1.o" "..\\src\\parcial1.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\salon.o" "..\\src\\salon.c" 
+gcc -o parcial1.exe "src\\arcade.o" "src\\combinadas.o" "src\\parcial1.o" "src\\salon.o" "src\\utn_validador.o" 
+11:50:46 **** Incremental Build of configuration Debug for project parcial1 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\parcial1.o" "..\\src\\parcial1.c" 
+gcc -o parcial1.exe "src\\arcade.o" "src\\combinadas.o" "src\\parcial1.o" "src\\salon.o" "src\\utn_validador.o" 
+11:54:05 **** Incremental Build of configuration Debug for project parcial1 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\parcial1.o" "..\\src\\parcial1.c" 
 gcc -o parcial1.exe "src\\arcade.o" "src\\combinadas.o" "src\\parcial1.o" "src\\salon.o" "src\\utn_validador.o" 

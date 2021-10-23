@@ -16,24 +16,10 @@
 #define VACIO 0
 #define SHOPPING 1
 #define LOCAL 2
-#define NOMBRE_GAME 63
-/*
-static int init_cantidadSalones(eCantidadSalones listSalones[], int len)
-{
-	int retorno=-1;
-	int i;
-	if(listSalones!=NULL && len>0)
-	{
 
-		for(i=0; i<len; i++)
-		{
-			listSalones[i].isEmpty=VACIO; // posicion Libre
-		}
-		retorno=0;
-	}
-	return retorno;
-}
-*/
+static int contadorSalones(eSalones salon[], int lenSalones);
+static int contadorArcades(eArcades arcade[], int lenArcades);
+static int arcadesDeSalon(eSalones salon[], eArcades arcade[], int lenArcade);
 
 int compararArcadeYSalon(eSalones salones[], int len_salon, int idSalonArcade)
 {
@@ -67,75 +53,30 @@ int imprimirTodoArcadeySalon(eSalones salones[], int len_salon, eArcades arcades
 	return retorno;
 }
 
-/***
-
-int salones_contarSalones(eCantidadSalones listSalones[], int len, int numSalon)
-{
-	int retorno=-2;
-	if (listSalones!=NULL && len>0 && numSalon>0)
-	{
-		retorno=-1;
-		for (int i=0; i<len; i++)
-		{
-			if(listSalones[i].isEmpty==OCUPADO)
-			{
-				if(listSalones[i].Salones==numSalon)
-				{
-					retorno=0;
-					break;
-				}
-			}
-		}
-	}
-		return retorno;
-}
-
-int salones_generarListaSalon(eSalones salones[], int len_salones, eCantidadSalones listSalones[],int len_contadorSalones)
-{
-	int retorno=-1;
-	init_cantidadSalones(listSalones, len_contadorSalones);
-	int indexSalones=0;
-	if(salones!=NULL && len_salones>0 && listSalones!=NULL && len_contadorSalones>0)
-	{
-		for(int i=0; i<len_salones; i++)
-		{
-			if(salones[i].isEmpty_salon==OCUPADO)
-			{
-				if(salones_contarSalones(listSalones, len_contadorSalones, salones[i].id_salon)==-1)
-				{
-					listSalones[indexSalones].Salones=salones[i].id_salon;
-					listSalones[indexSalones].isEmpty=OCUPADO;
-					indexSalones++;
-					retorno=0;
-				}
-			}
-		}
-
-	}
-	return retorno;
-}
-
-*/
 
 int ContadorArcadesEnSalones(eSalones salon[], int lenSalon, eArcades arcade[], int lenArcade)
 {
 	int retorno=-1;
 	int contador=0;
-	for(int i; i<lenSalon; i++)
+	if (salon!=NULL && lenSalon>0 && arcade!=NULL && lenArcade>0)
 	{
-		if(salon[i].isEmpty_salon==OCUPADO)
+
+		for(int i=0; i<lenSalon; i++)
 		{
-			for (int j=0; j<lenArcade; j++)
+			if(salon[i].isEmpty_salon==OCUPADO)
 			{
-				if(arcade[j].isEmpty_arcade==OCUPADO && arcade[j].idSalon_arcade==salon[i].id_salon)
+				for (int j=0; j<lenArcade; j++)
 				{
-					contador++;
-					if(contador>4)
+					if(arcade[j].isEmpty_arcade==OCUPADO && arcade[j].idSalon_arcade==salon[i].id_salon)
 					{
-						salon_printPositionIdNombreDirTipo(&salon[i]);
-						contador=0;
-						retorno=0;
-						break;
+						contador++;
+						if(contador>4)
+						{
+							salon_printPositionIdNombreDirTipo(&salon[i]);
+							contador=0;
+							retorno=0;
+							break;
+						}
 					}
 				}
 			}
@@ -309,18 +250,18 @@ if (salon!=NULL && lenSalon>0 && arcade!=NULL && lenArcade>0)
 return retorno;
 }
 
-int arcade_buscarJuegoEnListayContarArcades(eArcades juegos[], int len, char nombreJuego [])
+int arcade_buscarJuegoEnListayContarArcades(eArcades arcade[], int len, char nombreJuego [])
 {
 	//int retorno=-1;
 	int contador=-1;
-	if (juegos!=NULL && len>0 && nombreJuego!=NULL)
+	if (arcade!=NULL && len>0 && nombreJuego!=NULL)
 	{
 		contador=0;
 		for (int i=0; i<len; i++)
 		{
-			if(juegos[i].isEmpty_arcade==OCUPADO)
+			if(arcade[i].isEmpty_arcade==OCUPADO)
 			{
-				if(strncmp(juegos[i].nombreJuego_arcade,nombreJuego,NOMBRE_LEN)==0)
+				if(strncmp(arcade[i].nombreJuego_arcade,nombreJuego,NOMBRE_LEN)==0)
 				{
 					contador++;
 				}
@@ -331,64 +272,91 @@ int arcade_buscarJuegoEnListayContarArcades(eArcades juegos[], int len, char nom
 		return contador;
 }
 
-int ContadorArcadesMas8(eSalones salon[], int lenSalon, eArcades arcade[], int lenArcade)
+static int arcadesDeSalon(eSalones salon[], eArcades arcade[], int lenArcade)
 {
 	int retorno=-1;
-	int contador;
-	contador=0;
-	for(int i=0; i<lenSalon; i++)
+	int contador=0;
+	for (int j=0; j<lenArcade; j++)
 	{
-		if(salon[i].isEmpty_salon==OCUPADO)
+
+		if(arcade[j].isEmpty_arcade==OCUPADO && arcade[j].idSalon_arcade==salon->id_salon)
 		{
-			for (int j=0; j<lenArcade; j++)
+
+			contador++;
+			if(contador>8 && arcade[j].cantidad_jugadores>2)
 			{
+				retorno=0;
+				break;
+			}
+		}
 
-				if(arcade[j].isEmpty_arcade==OCUPADO && arcade[j].idSalon_arcade==salon[i].id_salon)
+	}
+	return retorno;
+}
+int ContadorArcadesMas8(eSalones salon[], int lenSalon, eArcades arcade[], int lenArcade)
+{
+	int retorno=-2;
+	if (salon!=NULL && lenSalon>0 && arcade!=NULL && lenArcade>0)
+	{
+		retorno=-1;
+		for(int i=0; i<lenSalon; i++)
+		{
+			if(salon[i].isEmpty_salon==OCUPADO)
+			{
+				if (arcadesDeSalon(&salon[i], arcade, lenArcade)==0)
 				{
-					contador++;
-					if(contador>8 && arcade[j].cantidad_jugadores>2)
-					{
-						salon_printPositionIdNombreDirTipo(&salon[i]);
-						retorno=0;
-						contador=0;
-						break;
-					}
+					salon_printPositionIdNombreDirTipo(&salon[i]);
+					retorno=0;
 				}
-
 			}
 		}
 	}
 	return retorno;
 }
 
-int promedioArcadesSalon(eSalones salon[], int lenSalones, eArcades arcade[], int lenArcades)
+int promedioArcadesSalon(eSalones salon[], int lenSalones, eArcades arcade[], int lenArcades, float *promedio)
 {
-	int retorno=-1;
-	int contadorSalones=0;
-	int contadorArcades=0;
-	float total;
-	float divisor;
+	int retorno=-2;
+	float salonesTotal;//casteamos este valor para poder sacar promedio exacto en float
+	int arcadesTotal;
+	if (salon!=NULL && lenSalones>0 && arcade!=NULL && lenArcades>0 && promedio!=NULL)
+	{
+		retorno=-1;
+		salonesTotal=contadorSalones(salon, lenSalones); // funcion de ontador de sallones
+		arcadesTotal=contadorArcades(arcade, lenArcades);
+		if(salonesTotal>0)
+		{
+			*promedio=arcadesTotal/salonesTotal;
+			retorno=0;
+		}
+
+	}
+	return retorno;
+}
+
+static int contadorSalones(eSalones salon[], int lenSalones)
+{
+	int contador=0;
 	for (int i=0; i<lenSalones; i++)
 	{
 		if(salon[i].isEmpty_salon==OCUPADO)
 		{
-			contadorSalones++;
+			contador++;
 		}
 	}
+	return contador;
+}
 
+static int contadorArcades(eArcades arcade[], int lenArcades)
+{
+	int contador=0;
 	for (int j=0; j<lenArcades; j++)
 	{
 		if(arcade[j].isEmpty_arcade==OCUPADO)
 		{
-			contadorArcades++;
+			contador++;
 		}
 	}
-
-	divisor=contadorSalones;
-	total =contadorArcades/divisor;
-
-	printf("Hay %.2f arcades por cada Salon\n ", total);
-	return retorno;
+	return contador;
 }
-
 
