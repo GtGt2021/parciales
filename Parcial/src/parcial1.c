@@ -17,8 +17,9 @@
 #include "salon.h"
 #include "arcade.h"
 #include "combinadas.h"
-#define SALONES_LEN 100
-#define ARCADES_LEN 1000
+#define SALONES_LEN 5
+#define ARCADES_LEN 10
+#define JUEGOS_LEN 200
 #define CON_TIPO 1
 #define SIN_TIPO 2
 #define MONO 2
@@ -31,11 +32,14 @@
 
 int main(void) {
 	setbuf(stdout,NULL);
-	eSalones eSalones[SALONES_LEN];
-	eArcades eArcades[ARCADES_LEN];
-	eJuegos juegos[ARCADES_LEN];
-	init_salones(eSalones, SALONES_LEN);
-	init_arcades(eArcades, ARCADES_LEN);
+	eSalones* pArraySalones[SALONES_LEN];
+	eSalones* pSalonAux;
+	eArcades* pArrayArcardes[ARCADES_LEN];
+	eArcades* pArcadeAux;
+	salonInitArray(pArraySalones, SALONES_LEN);
+	arcade_initArray(pArrayArcardes, ARCADES_LEN);
+	eJuegos* pArrayjuegos[JUEGOS_LEN];
+	eJuegos* pJuegosAux;
 	int menu;
 	int auxMenu;
 	char juego[NOMBREGAME_LEN];
@@ -46,15 +50,9 @@ int main(void) {
 	char respuesta[2];
 	float promedioSalonArca;
 	float precioFicha;
-	//int auxId;
-	FILE *parcial;
-	parcial=fopen("parcial","w");
-	if(parcial!=NULL)
-	{
-		printf("Se creo un  archivo");
-	}
+	int auxId;
 
-					Salon_altaForzada(&eSalones[15], "BUENAVENTURA", "GUATIRE", LOCAL);
+	/*				Salon_altaForzada(&eSalones[15], "BUENAVENTURA", "GUATIRE", LOCAL);
 					Salon_altaForzada(&eSalones[90], "SAMBIL", "CARACAS", SHOPPING);
 					Salon_altaForzada(&eSalones[91], "BUENAVENTURA", "GUATIRE", SHOPPING);
 					Salon_altaForzada(&eSalones[92], "SAMBIL", "CARACAS", LOCAL);
@@ -129,7 +127,7 @@ int main(void) {
 					arcade_altaForzada(&eArcades[225], "mortadela Combat", "colombia", STEREO, 8, 2, 12);
 					arcade_altaForzada(&eArcades[226], "Mortal Combat", "China", 	MONO, 9, 1, 12);
 
-
+*/
 
 
 
@@ -140,34 +138,43 @@ int main(void) {
 		{
 			case 1:
 
-				switch (loadSalon(eSalones, SALONES_LEN))
+				if(salonBuscarposicionLibre(pArraySalones, SALONES_LEN, &auxIndex)==0)//2
 				{
-				case 0:
-					printf("Salon Cargado Correctamente\n");
-					break;
-				case -1:
-					printf("Error al Ingresar Datos\n");
-					break;
-				case -2:
-					printf("Memoria Llena\n");
-					break;
-				case -3:
-					printf("Error en el Archivo\n");
-					break;
+
+					pSalonAux=salonNuevo();
+					if(pSalonAux!=NULL)
+					{
+						if(salonCargarInfo(pSalonAux)==0)
+						{
+							pArraySalones[auxIndex]=pSalonAux;
+							pSalonAux=NULL;
+						}
+						else
+						{
+							printf("Carga de Datos incorrecta");
+						}
+
+					}
+				}
+				else
+				{
+					printf("no tienes mas Espacio");
 				}
 
 				break;
 			case 2:
-				if(gen_verificarQueTieneDatosLista(eSalones, SALONES_LEN)==0)
+				if(salonTieneDatos(pArraySalones, SALONES_LEN)==0)
 				{
-					printSalon(eSalones, SALONES_LEN, SIN_TIPO);
+					salonImprimirTodos(pArraySalones, SALONES_LEN, SIN_TIPO);
 					if (utn_pedirIntPositivoAUsuario(&auxiliarBaja, 3, "Ingrese Id Salon que desea Eliminar", "Error")==0)
 					{//pedi ID DE SALON
-						if (removeSalon(eSalones, SALONES_LEN, auxiliarBaja)==0)//AUXILIAR BAJA ES EL ID DEL SALON y
+						if (salonEliminarId(pArraySalones, SALONES_LEN, auxiliarBaja)==0)//buscamos que exista el id a eliminar
 						{
-
-							arcade_bajarArcadeById(eArcades, ARCADES_LEN, auxiliarBaja);//ENTRO EN ARCADE.C Y PONGO EN 0 LOS QUE TENGAN ESTE ID DE SALON
+							//printf("el array en esa posicion 0 tiene %p el array en esa posicion 1  tiene %p\n", pArrayArcardes[0], pArrayArcardes[1] );
+							arcade_bajarArcadeById(pArrayArcardes, ARCADES_LEN, auxiliarBaja);//ENTRO EN ARCADE.C Y PONGO EN 0 LOS QUE TENGAN ESTE ID DE SALON
 							printf ("El Id %d, Fue eliminado Correctamente junto con sus arcades\n", auxiliarBaja);
+							//printf("el array en esa posicion 0 tiene %p el array en esa posicion 1  tiene %p\n", pArrayArcardes[0], pArrayArcardes[1] );
+
 						}
 
 					}
@@ -178,9 +185,9 @@ int main(void) {
 				}
 				break;
 			case 3:
-				if(gen_verificarQueTieneDatosLista(eSalones, SALONES_LEN)==0)
+				if(salonTieneDatos(pArraySalones, SALONES_LEN)==0)
 				{
-					printSalon(eSalones, SALONES_LEN, CON_TIPO);
+					salonImprimirTodos(pArraySalones, SALONES_LEN, CON_TIPO);
 				}
 				else
 				{
@@ -188,37 +195,41 @@ int main(void) {
 				}
 				break;
 			case 4:
-				if(gen_verificarQueTieneDatosLista(eSalones, SALONES_LEN)==0)
+				if(salonTieneDatos(pArraySalones, SALONES_LEN)==0)
 				{
-					printSalon(eSalones, SALONES_LEN, 1);
+					salonImprimirTodos(pArraySalones, SALONES_LEN, CON_TIPO);
 					if(utn_pedirIntPositivoAUsuario(&auxiliarAltaArca, 3, "Ingrese el Numero del Id Del Salon al Cual le quiere cargar el Arcade:\n", "Error")==0)
 					{
-						if(gen_verificarIdExiste(eSalones, SALONES_LEN, auxiliarAltaArca)==0)
+						if(salon_verificarIdExiste(pArraySalones, SALONES_LEN, auxiliarAltaArca)==0)
 						{
-							switch (arcade_loadArcade(eArcades, ARCADES_LEN, auxiliarAltaArca))
+							if(arcade_buscarPosicionLibre(pArrayArcardes, ARCADES_LEN, &auxIndex)==0)
 							{
-							case 0:
-								printf("Arcade Cargado Correctamente\n");
-								break;
-							case -1:
-								printf("Error al Ingresar Datos\n");
-								break;
-							case -2:
-								printf("Memoria Llena\n");
-								break;
-							case -3:
-								printf("ID SALON NO EXISTE\n");
-								break;
+								pArcadeAux=arcadeNuevo();
+								if(pArcadeAux!=NULL)
+								{
+									if (arcade_cargarArcade(pArcadeAux, auxiliarAltaArca)==0)
+									{
+										pArrayArcardes[auxIndex]=pArcadeAux;
+										pArcadeAux=NULL;
+									}
+									else
+									{
+										printf("carga de Datos Incorrecta");
+									}
+
+								}
 							}
+							else
+							{
+								printf("NO TENEMOS CANCHA PA OTRO ARCADE");
+							}
+
 						}
-
+						else
+						{
+							printf("Id no esta en la lista\n");
+						}
 					}
-					else
-					{
-						printf("Id no esta en la lista\n");
-					}
-
-
 				}
 				else
 				{
@@ -227,33 +238,22 @@ int main(void) {
 
 				break;
 			case 5:
-				if(arcade_verificarQueTieneDatosLista(eArcades, ARCADES_LEN)==0)
+				if(arcade_verificarQueTieneDatosLista(pArrayArcardes, ARCADES_LEN)==0)
 				{
-					arcadePrintArcade(eArcades, ARCADES_LEN);
+					arcade_imprimirListaArcade(pArrayArcardes, ARCADES_LEN);
 					if (utn_pedirIntPositivoAUsuario(&auxiliarBaja, 3, "Ingrese Id Arcade que desea Modificar", "Error")==0)
 					{
-						if(arcade_findArcadeById(eArcades, ARCADES_LEN, auxiliarBaja, &auxIndex)==0)
+						if(arcade_buscarArcadePorId(pArrayArcardes, ARCADES_LEN, auxiliarBaja, &auxIndex)==0)
 						{
-							if (utn_pedirIntAUsuarioConLimites(&auxMenu, 1, 2, 3, "Ingrese Numero Segun lo que desea Modificar:\n1.-Juego \n2.-Cantidad de Jugadores", "Error")==0)
+							if(arcade_modificarLista(pArrayArcardes[auxIndex])==0)
 							{
-								switch (auxMenu)
-								{
-									case 2:
-										if (utn_pedirIntPositivoAUsuario(&cantidad, 3, "Ingrese Nueva Cantidad de Jugadores", "Error")==0)
-										{
-											eArcades[auxIndex].cantidad_jugadores=cantidad;
-										}
-										break;
-									case 1:
-										arcade_generarListaJuegos(eArcades, ARCADES_LEN, juegos, ARCADES_LEN);
-										arcadePrintArcadeGames(juegos, ARCADES_LEN);
-										if(utn_pedirNombreYApellidoAUsuario(juego, NOMBRE_LEN, 3, "Ingrese nuevo Juego", "Error")==0)
-										{
-											strncpy(eArcades[auxIndex].nombreJuego_arcade, juego, sizeof(eArcades->nombreJuego_arcade));
-										}
-										break;
-								}
+								printf("Modificacion Exitosa");
 							}
+							else
+							{
+								printf("Error al Cargar DAtos");
+							}
+
 						}
 						else
 						{
@@ -267,22 +267,23 @@ int main(void) {
 					printf("No hay datos Cargados");
 				}
 				break;
-			case 6: //pendiente que no baja el empleado
-				if(arcade_verificarQueTieneDatosLista(eArcades, ARCADES_LEN)==0)
+			case 6:
+				if(arcade_verificarQueTieneDatosLista(pArrayArcardes, ARCADES_LEN)==0)
 				{
-					imprimirTodoArcadeySalon(eSalones, SALONES_LEN, eArcades, ARCADES_LEN);
+					arcade_imprimirListaArcade(pArrayArcardes, ARCADES_LEN);
+					//imprimirTodoArcadeySalon(pArraySalones, SALONES_LEN, pArrayArcardes, ARCADES_LEN);
 					if(utn_pedirIntPositivoAUsuario(&auxiliarBaja, 3, "Ingrese Id Arcade a dar de Baja\n", "error")==0)
 					{
-						if(arcade_findArcadeById(eArcades, ARCADES_LEN, auxiliarBaja, &auxIndex)==0)
+						if(arcade_buscarArcadePorId(pArrayArcardes, ARCADES_LEN, auxiliarBaja, &auxIndex)==0)
 						{
-							printf("Este es el Arcade que quiere Dar de Baja\n");
-							arcade_printPosition(&eArcades[auxIndex]);
-							if(utn_pedirLetrasAUsuario(respuesta, 2, 0, "Esta seguro de dar de baja al arcade (s) para confirmar ", "Error")==0)
+							printf("este es el Arcade Que dara de Baja:\n");
+							arcade_imprimirArcade(pArrayArcardes[auxIndex]);
+							if(utn_pedirLetrasAUsuario(respuesta, 2, 0, "Esta seguro de dar de baja al arcade (s) para confirmar ", "Volviendo Al Menu Principal")==0)
 							{
 								if(respuesta[0]=='s')
 								{
-									arcade_darBajaArcade(&eArcades[auxIndex]);
-									printf ("El Id %d, Fue eliminado Correctamente\n", auxiliarBaja);
+									arcade_bajarArcadeByIdArcade(pArrayArcardes, ARCADES_LEN, auxiliarBaja);
+									printf ("El Arcade Id %d, Fue eliminado Correctamente\n", auxiliarBaja);
 
 								}
 								else
@@ -302,17 +303,21 @@ int main(void) {
 				break;
 			default:
 			case 7:
-				if (arcade_verificarQueTieneDatosLista(eArcades, ARCADES_LEN)==0)
-					{
-					arcadePrintArcade(eArcades, ARCADES_LEN);
-					}
+				if (arcade_verificarQueTieneDatosLista(pArrayArcardes, ARCADES_LEN)==0)
+				{
+					arcade_imprimirListaArcade(pArrayArcardes, ARCADES_LEN);
+				}
+				else
+				{
+					printf("NO ICE ARCADES");
+				}
 				break;
 			case 8:
-				if (arcade_verificarQueTieneDatosLista(eArcades, ARCADES_LEN)==0)
+				if (arcade_verificarQueTieneDatosLista(pArrayArcardes, ARCADES_LEN)==0)
 					{
 					printf("Lista de Juegos:\n");
-					arcade_generarListaJuegos(eArcades, ARCADES_LEN, juegos, ARCADES_LEN);
-					arcadePrintArcadeGames(juegos, ARCADES_LEN);
+					arcade_generarListaJuegos(pArrayArcardes, ARCADES_LEN, pArrayjuegos, ARCADES_LEN);
+					arcade_imprimirListaJuegos(pArrayjuegos, ARCADES_LEN);
 					}
 				break;
 			case 9:
@@ -321,11 +326,11 @@ int main(void) {
 					switch (auxMenu)
 					{
 						case 1:
-							if(gen_verificarQueTieneDatosLista(eSalones, SALONES_LEN)==0)
+							if(salonTieneDatos(pArraySalones, SALONES_LEN)==0)
 							{
-								if(arcade_verificarQueTieneDatosLista(eArcades, ARCADES_LEN)==0)
+								if(arcade_verificarQueTieneDatosLista(pArrayArcardes, ARCADES_LEN)==0)
 								{
-									if(ContadorArcadesEnSalones(eSalones, SALONES_LEN, eArcades, ARCADES_LEN)!=0)
+									if(ContadorArcadesEnSalones(pArraySalones, SALONES_LEN, pArrayArcardes, ARCADES_LEN)!=0)
 									{
 										printf("No hay salones con mas de 4 arcades");
 									}
@@ -341,9 +346,9 @@ int main(void) {
 							}
 							break;
 						case 2:
-							if(arcade_verificarQueTieneDatosLista(eArcades, ARCADES_LEN)==0)
+							if(arcade_verificarQueTieneDatosLista(pArrayArcardes, ARCADES_LEN)==0)
 							{
-								if(arcadesDosOMasJugadores(eSalones, SALONES_LEN, eArcades, ARCADES_LEN)!=0)
+								if(arcadesDosOMasJugadores(pArraySalones, SALONES_LEN, pArrayArcardes, ARCADES_LEN)!=0)
 								{
 									printf("No hay Arcade para mas de 2 jugadores");
 								}
@@ -355,11 +360,11 @@ int main(void) {
 							}
 							break;
 						case 3:
-							if(printSalon(eSalones, SALONES_LEN, 1)==0)
+							if(salonImprimirTodos(pArraySalones, SALONES_LEN, 1)==0)
 							{
 								if(utn_pedirIntPositivoAUsuario(&auxiliarAltaArca, 3, "Ingrese el Id Salon Para Ver su Informacion", "Error")==0)
 								{
-									listarInformacionSalonEspecifico(eSalones, SALONES_LEN, auxiliarAltaArca, eArcades, ARCADES_LEN);
+									listarInformacionSalonEspecifico(pArraySalones, SALONES_LEN, auxiliarAltaArca, pArrayArcardes, ARCADES_LEN);
 								}
 								else
 								{
@@ -372,13 +377,13 @@ int main(void) {
 							}
 							break;
 						case 4:
-							if(gen_verificarQueTieneDatosLista(eSalones, SALONES_LEN)==0)
+							if(salonTieneDatos(pArraySalones, SALONES_LEN)==0)
 							{
-								if(arcade_verificarQueTieneDatosLista(eArcades, ARCADES_LEN)==0)
+								if(arcade_verificarQueTieneDatosLista(pArrayArcardes, ARCADES_LEN)==0)
 								{
 									if(utn_pedirIntPositivoAUsuario(&auxiliarAltaArca, 3, "Ingrese ID Salon para ver ARcades", "Error")==0)
 									{
-										listarArcadesDeUnSalon(eSalones, SALONES_LEN, auxiliarAltaArca, eArcades, ARCADES_LEN);
+										listarArcadesDeUnSalon(pArraySalones, SALONES_LEN, auxiliarAltaArca, pArrayArcardes, ARCADES_LEN);
 									}
 								}
 								else
@@ -394,18 +399,18 @@ int main(void) {
 							break;
 						case 5:
 							printf("caso 5");
-							imprimirSalonMasArcades(eArcades, ARCADES_LEN, eSalones, SALONES_LEN);
+							imprimirSalonMasArcades(pArrayArcardes, ARCADES_LEN, pArraySalones, SALONES_LEN);
 							break;
 						case 6:
-							if(printSalon(eSalones, SALONES_LEN, 2)==0)
+							if(salonImprimirTodos(pArraySalones, SALONES_LEN, 2)==0)
 							{
 								if(utn_pedirIntPositivoAUsuario(&auxiliarAltaArca, 3, "Ingrese ID del Salon para calcular Facturacion Maxima", "Error ")==0)
 								{
-									if(findSalonById(eSalones, SALONES_LEN, auxiliarAltaArca, &auxIndex)==0)
+									if(buscarSalonPorId(pArraySalones, SALONES_LEN, auxiliarAltaArca, &auxIndex)==0)
 									{
 										if(utn_pedirFloatPositivoAUsuario(&precioFicha, 3, "Ingrese Precio Ficha\n", "Error")==0)
 										{
-											montoMaximoRecaudacion(eArcades, ARCADES_LEN, eSalones, SALONES_LEN, auxIndex, precioFicha);
+											montoMaximoRecaudacion(pArrayArcardes, ARCADES_LEN, pArraySalones, SALONES_LEN, auxIndex, precioFicha);
 										}
 										else
 										{
@@ -430,11 +435,11 @@ int main(void) {
 
 							break;
 						case 7:
-							if (arcade_verificarQueTieneDatosLista(eArcades, ARCADES_LEN)==0)
+							if (arcade_verificarQueTieneDatosLista(pArrayArcardes, ARCADES_LEN)==0)
 							{
 								if (utn_pedirNombreYApellidoAUsuario(juego, NOMBREGAME_LEN, 3, "Ingrese Nombre Juego (DISTINGUE MAYUSCULA Y MINUSCULA)", "Error, ")==0)
 									{
-										cantidad=arcade_buscarJuegoEnListayContarArcades(eArcades, ARCADES_LEN, juego);
+										cantidad=arcade_buscarJuegoEnListayContarArcades(pArrayArcardes, ARCADES_LEN, juego);
 										if (cantidad>0)
 										{
 											printf("El juego esta en %d Arcades\n", cantidad);
@@ -451,9 +456,9 @@ int main(void) {
 							}
 							break;
 						case 8:
-							if (gen_verificarQueTieneDatosLista(eSalones, SALONES_LEN)==0)
+							if (salonTieneDatos(pArraySalones, SALONES_LEN)==0)
 							{
-								if (ContadorArcadesMas8(eSalones, SALONES_LEN, eArcades, ARCADES_LEN)<0)
+								if (ContadorArcadesMas8(pArraySalones, SALONES_LEN, pArrayArcardes, ARCADES_LEN)<0)
 								{
 									printf("No Tienes Salones Con Mas de 8 Arcades y 2 o mas jugadores");
 								}
@@ -462,7 +467,7 @@ int main(void) {
 							break;
 						case 9:
 
-							if (promedioArcadesSalon(eSalones, SALONES_LEN, eArcades, ARCADES_LEN, &promedioSalonArca)==0)
+							if (promedioArcadesSalon(pArraySalones, SALONES_LEN, pArrayArcardes, ARCADES_LEN, &promedioSalonArca)==0)
 							{
 								printf("El promedio de Arcades por Salon es de %.2f", promedioSalonArca);
 							}
@@ -476,11 +481,6 @@ int main(void) {
 				}
 				break;
 			case 0:
-				if(parcial!=NULL)
-				{
-					fprintf(parcial, "Cerramos y Guardamos el Archivo");
-					fclose(parcial);
-				}
 				break;
 
 

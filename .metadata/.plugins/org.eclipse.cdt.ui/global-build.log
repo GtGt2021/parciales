@@ -1,13 +1,12 @@
-11:48:47 **** Incremental Build of configuration Debug for project parcial1 ****
+21:12:06 **** Incremental Build of configuration Debug for project pruebaTp3 ****
 Info: Internal Builder is used for build
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\parcial1.o" "..\\src\\parcial1.c" 
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\salon.o" "..\\src\\salon.c" 
-gcc -o parcial1.exe "src\\arcade.o" "src\\combinadas.o" "src\\parcial1.o" "src\\salon.o" "src\\utn_validador.o" 
-11:50:46 **** Incremental Build of configuration Debug for project parcial1 ****
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o Controller.o "..\\Controller.c" 
+gcc "-LC:\\Users\\gt\\Desktop\\TP3(1)\\eclipse_tp3_v3\\eclipse_tp3_v3\\tp3_windows" -o pruebaTp3.exe Controller.o Employee.o Validator.o main.o parser.o utn_validador.o -lLinkedList 
+21:12:11 **** Incremental Build of configuration Debug for project pruebaTp3 ****
 Info: Internal Builder is used for build
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\parcial1.o" "..\\src\\parcial1.c" 
-gcc -o parcial1.exe "src\\arcade.o" "src\\combinadas.o" "src\\parcial1.o" "src\\salon.o" "src\\utn_validador.o" 
-11:54:05 **** Incremental Build of configuration Debug for project parcial1 ****
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc "-LC:\\Users\\gt\\Desktop\\TP3(1)\\eclipse_tp3_v3\\eclipse_tp3_v3\\tp3_windows" -o pruebaTp3.exe Controller.o Employee.o Validator.o main.o parser.o utn_validador.o -lLinkedList 
+21:14:29 **** Incremental Build of configuration Debug for project pruebaTp3 ****
 Info: Internal Builder is used for build
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\parcial1.o" "..\\src\\parcial1.c" 
-gcc -o parcial1.exe "src\\arcade.o" "src\\combinadas.o" "src\\parcial1.o" "src\\salon.o" "src\\utn_validador.o" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc "-LC:\\Users\\gt\\Desktop\\TP3(1)\\eclipse_tp3_v3\\eclipse_tp3_v3\\tp3_windows" -o pruebaTp3.exe Controller.o Employee.o Validator.o main.o parser.o utn_validador.o -lLinkedList 
