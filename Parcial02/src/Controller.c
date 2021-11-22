@@ -140,3 +140,36 @@ int controller_ListArcade(LinkedList* pArrayArcade)
 	}
 	return retorno;
 }
+
+
+int controller_editArcade(LinkedList* pArrayArcade)
+{
+	int retorno=-1;
+	int index;
+	char letra[2];
+	Arcade *pArcade=NULL;
+	if(pArrayArcade!=NULL)
+	{
+		if(utn_pedirIntPositivoAUsuario(&index, 3, "Ingrese Id A Editar", "Error")==0)
+		{
+			index=arcade_findByIdIndex(pArrayArcade, index);
+			if(index>=0)
+			{
+				pArcade=(Arcade*)ll_get(pArrayArcade, index);
+				if(pArcade!=NULL && )
+				{
+
+				}
+				else
+				{
+					printf("NULL");
+				}
+			}
+			else
+			{
+				printf("Id No Existe");
+			}
+		}
+	}
+	return retorno;
+}

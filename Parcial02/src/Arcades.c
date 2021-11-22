@@ -128,3 +128,186 @@ if(pListArcade!=NULL)
 }
 return pArcade;
 }
+
+
+int arcade_findByIdIndex(LinkedList *pListArcade, int id)
+{
+	int retorno;
+	Arcade* pArcade;
+	int idAux;
+	if(pListArcade!=NULL)
+	{
+		for(int i=0; i<ll_len(pListArcade); i++)
+		{
+			pArcade=ll_get(pListArcade, i);
+			if(arcade_getId(pArcade, &idAux)==0)
+			{
+				if (idAux==id)
+				{
+					retorno=id;
+					break;
+				}
+			}
+			pArcade=NULL;
+		}
+	}
+	return retorno;
+}
+
+
+int employee_getOrden(int *orden, int *tipo)
+{
+	int retorno=-1;
+	if(tipo!= NULL &&  orden!=NULL && utn_pedirIntAUsuarioConLimites(orden, 1, 4, 3, "Ingresar El tipo de ordenamiento\n 1.-Nombre Juego\n 2.-Nacionalidad\n 3.-Cantidad de Jugadores\n 4.-Cantidad Fichas\n 5.-Nombre Salon\n",
+			"Error")==0 && utn_pedirIntAUsuarioConLimites(tipo, 0, 1, 3, "Ingrese\n 1.-Creciente\n 0.-Decreciente", "error")==0)
+	{
+		retorno=0;
+	}
+	else
+	{
+		printf("Opcion no Dispobible\n");
+	}
+	return retorno;
+}
+
+int arcade_compareByJugadores(void* pArcade1, void* pArcade2)
+{
+	int retorno;
+
+	Arcade* pArcadeUno = (Arcade*)pArcade1;
+	Arcade* pArcadeDos = (Arcade*)pArcade2;
+	int player1;
+	int player2;
+	arcade_getJugadores(pArcade1, &player1);
+	arcade_getJugadores(pArcade2, &player2);
+	if(player1>player2)
+	{
+		retorno=1;
+	}
+	else
+	{
+		if(player1==player2)
+		{
+			retorno=0;
+		}
+		else
+		{
+			retorno=-1;
+		}
+	}
+
+	return retorno;
+}
+
+int arcade_compareByFichas(void* pArcade1, void* pArcade2)
+{
+	int retorno;
+
+	Arcade* pArcadeUno = (Arcade*)pArcade1;
+	Arcade* pArcadeDos = (Arcade*)pArcade2;
+	int player1;
+	int player2;
+	arcade_getFichas(pArcade1, &player1);
+	arcade_getFichas(pArcade2, &player2);
+	if(player1>player2)
+	{
+		retorno=1;
+	}
+	else
+	{
+		if(player1==player2)
+		{
+			retorno=0;
+		}
+		else
+		{
+			retorno=-1;
+		}
+	}
+
+	return retorno;
+}
+
+int arcade_compareByGame(void* pArcade1, void* pArcade2)
+{
+	int retorno;
+	Arcade* pArcadeUno = (Arcade*)pArcade1;
+	Arcade* pArcadeDos = (Arcade*)pArcade2;
+	char name1[NOMBREJUEGO_LEN];
+	char name2[NOMBREJUEGO_LEN];
+	arcade_getNombreJuego(pArcadeUno, name1);
+	arcade_getNombreJuego(pArcadeDos, name2);
+	int tam=strcmp(name1,name2);
+	if(tam>0)
+	{
+		retorno=1;
+	}else
+	{
+		if (tam==0)
+		{
+			retorno=0;
+		}
+		else
+		{
+			retorno=-1;
+		}
+	}
+
+return retorno;
+}
+
+int arcade_compareByNationality(void* pArcade1, void* pArcade2)
+{
+	int retorno;
+	Arcade* pArcadeUno = (Arcade*)pArcade1;
+	Arcade* pArcadeDos = (Arcade*)pArcade2;
+	char name1[NACIONALIDAD_LEN];
+	char name2[NACIONALIDAD_LEN];
+	arcade_getNacionalidad(pArcadeUno, name1);
+	arcade_getNacionalidad(pArcadeDos, name2);
+	int tam=strcmp(name1,name2);
+	if(tam>0)
+	{
+		retorno=1;
+	}else
+	{
+		if (tam==0)
+		{
+			retorno=0;
+		}
+		else
+		{
+			retorno=-1;
+		}
+	}
+
+return retorno;
+}
+
+int arcade_compareBySalon(void* pArcade1, void* pArcade2)
+{
+	int retorno;
+	Arcade* pArcadeUno = (Arcade*)pArcade1;
+	Arcade* pArcadeDos = (Arcade*)pArcade2;
+	char name1[NACIONALIDAD_LEN];
+	char name2[NACIONALIDAD_LEN];
+	arcade_getNombreSalon(pArcadeUno, name1);
+	arcade_getNombreSalon(pArcadeDos, name2);
+	int tam=strcmp(name1,name2);
+	if(tam>0)
+	{
+		retorno=1;
+	}else
+	{
+		if (tam==0)
+		{
+			retorno=0;
+		}
+		else
+		{
+			retorno=-1;
+		}
+	}
+
+return retorno;
+}

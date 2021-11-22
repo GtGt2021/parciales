@@ -34,5 +34,13 @@ Arcade* arcade_new();
 Arcade* arcade_newParametros(char* id,char* nacionalidad,char* nombreSalon,char* sonido,char* cantidadFichas,char* nombreJuego,char* cantidadJugadores);
 void ImprimirLista(void* pArcade);
 Arcade* arcade_findById(LinkedList *pListArcade, int id);
+int arcade_compareBySalon(void* pArcade1, void* pArcade2);
+int arcade_compareByNationality(void* pArcade1, void* pArcade2);
+int arcade_compareByGame(void* pArcade1, void* pArcade2);
+int arcade_compareByFichas(void* pArcade1, void* pArcade2);
+int arcade_compareByJugadores(void* pArcade1, void* pArcade2);
+int employee_getOrden(int *orden, int *tipo);
+int arcade_findByIdIndex(LinkedList *pListArcade, int id);
+
 
 #endif /* ARCADES_H_ */

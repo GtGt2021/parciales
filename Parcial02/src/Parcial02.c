@@ -89,6 +89,7 @@ int main(void) {
 				case 3:
 					if(ll_isEmpty(ListaArcades)==0)
 					{
+						controller_ListArcade(ListaArcades);
 
 					}
 					else
