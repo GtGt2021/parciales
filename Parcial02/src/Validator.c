@@ -17,7 +17,7 @@
  * param char nombre nombre traido del archivo
  * return -1 si encuentra algun error al leer el dato y 0 si todo OK (si lo cargo en el campo del elemento)
  */
-int arcade_setNombreJuegoFile(Arcade* pArcade,char* nombre)
+int arcade_getNombreJuegoFile(Arcade* pArcade,char* nombre)
 {
 	int retorno=-1;
 	if(pArcade!=NULL && nombre!=NULL)
@@ -37,7 +37,7 @@ int arcade_setNombreJuegoFile(Arcade* pArcade,char* nombre)
  * param char nombre nombre SALON traido del archivo
  * return -1 si encuentra algun error al leer el dato y 0 si todo OK (si lo cargo en el campo del elemento)
  */
-int arcade_setNombreSalonFile(Arcade* pArcade,char* nombre)
+int arcade_getNombreSalonFile(Arcade* pArcade,char* nombre)
 {
 	int retorno=-1;
 	if(pArcade!=NULL && nombre!=NULL)
@@ -57,7 +57,7 @@ int arcade_setNombreSalonFile(Arcade* pArcade,char* nombre)
  * param char nombre NACIONALIDAD traida del archivo
  * return -1 si encuentra algun error al leer el dato y 0 si todo OK (si lo cargo en el campo del elemento)
  */
-int arcade_setNacionalidadFile(Arcade* pArcade,char* nombre)
+int arcade_getNacionalidadFile(Arcade* pArcade,char* nombre)
 {
 	int retorno=-1;
 	if(pArcade!=NULL && nombre!=NULL)
@@ -77,7 +77,7 @@ int arcade_setNacionalidadFile(Arcade* pArcade,char* nombre)
  * param char ID traido del archivo
  * return -1 si encuentra algun error al leer el dato y 0 si todo OK (si lo cargo en el campo del elemento)
  */
-int arcade_setIdFile(Arcade* pArcade,char* id)
+int arcade_getIdFile(Arcade* pArcade,char* id)
 {
 	int retorno=-1;
 	int idAux;
@@ -98,7 +98,7 @@ int arcade_setIdFile(Arcade* pArcade,char* id)
  * param char cantidadJugadores traido del archivo
  * return -1 si encuentra algun error al leer el dato y 0 si todo OK (si lo cargo en el campo del elemento)
  */
-int arcade_setCantidadJugadoresFile(Arcade* pArcade,char* cantidad)
+int arcade_getCantidadJugadoresFile(Arcade* pArcade,char* cantidad)
 {
 	int retorno=-1;
 	int cantidadAux;
@@ -119,7 +119,7 @@ int arcade_setCantidadJugadoresFile(Arcade* pArcade,char* cantidad)
  * param char cantidadFichas traido del archivo
  * return -1 si encuentra algun error al leer el dato y 0 si todo OK (si lo cargo en el campo del elemento)
  */
-int arcade_setCantidadFichasFile(Arcade* pArcade,char* cantidad)
+int arcade_getCantidadFichasFile(Arcade* pArcade,char* cantidad)
 {
 	int retorno=-1;
 	int cantidadAux;
@@ -140,7 +140,7 @@ int arcade_setCantidadFichasFile(Arcade* pArcade,char* cantidad)
  * param char sonido PALABRA SONIDO traido del archivo
  * return -1 si encuentra algun error al leer el dato y 0 si todo OK (si lo cargo en el campo del elemento)
  */
-int arcade_setSonidoFile(Arcade* pArcade,char* sonido)
+int arcade_getSonidoFile(Arcade* pArcade,char* sonido)
 {
 	int retorno=-1;
 	if (pArcade!= NULL && sonido!=NULL)

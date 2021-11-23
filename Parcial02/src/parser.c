@@ -4,6 +4,7 @@
 #include "LinkedList.h"
 #include "Arcades.h"
 #include "parser.h"
+#include "validator.h"
 
 
 
@@ -46,7 +47,7 @@ int parser_arcadesFromText(FILE* pFile , LinkedList* pArrayArcades)
 			}
 			else
 			{
-				printf("Archivo Corrupto\n");
+				printf("Archivo Sin Datos se Sobreescribira el Mismo\n");
 				break;
 			}
 
@@ -55,7 +56,49 @@ int parser_arcadesFromText(FILE* pFile , LinkedList* pArrayArcades)
 	return retorno;
 }
 
+int parser_saveAsText(FILE* pFile , LinkedList* list)
+{
+	int retorno =-1;
+	Arcade *pArcade;
+	int id;
+	char nacionalidad[NACIONALIDAD_LEN];
+	int sonido;
+	int cantidadJugadores;
+	int cantidadFichas;
+	char nombreSalon[NOMBRESALON_LEN];
+	char nombreJuego[NOMBREJUEGO_LEN];
 
+	if(pFile!=NULL && list!=NULL)
+	{
 
+		fprintf(pFile,"id,nacionalidad,tipo_sonido,cant_jug,fichas_max,salon,game\n");
+		for(int i=0; i<ll_len(list); i++)
+		{
+
+			pArcade=ll_get(list, i);
+			if (pArcade!=NULL)
+			{
+				arcade_getFichas(pArcade, &cantidadFichas);
+				arcade_getId(pArcade, &id);
+				arcade_getJugadores(pArcade, &cantidadJugadores);
+				arcade_getNacionalidad(pArcade, nacionalidad);
+				arcade_getNombreJuego(pArcade, nombreJuego);
+				arcade_getNombreSalon(pArcade, nombreSalon);
+				arcade_getSonido(pArcade, &sonido);
+				if(sonido==STEREO)
+				{
+					fprintf(pFile,"%d,%s,STEREO,%d,%d,%s,%s\n",id,nacionalidad,cantidadJugadores,cantidadFichas,nombreSalon,nombreJuego);
+				}
+				else
+				{
+					fprintf(pFile,"%d,%s,MONO,%d,%d,%s,%s\n",id,nacionalidad,cantidadJugadores,cantidadFichas,nombreSalon,nombreJuego);
+				}
+			}
+
+		}
+		retorno=0;
+		}
+	return retorno;
+}
 
 

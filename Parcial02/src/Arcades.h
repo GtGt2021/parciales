@@ -39,8 +39,14 @@ int arcade_compareByNationality(void* pArcade1, void* pArcade2);
 int arcade_compareByGame(void* pArcade1, void* pArcade2);
 int arcade_compareByFichas(void* pArcade1, void* pArcade2);
 int arcade_compareByJugadores(void* pArcade1, void* pArcade2);
-int employee_getOrden(int *orden, int *tipo);
+int arcade_getOrden(int *orden, int *tipo);
 int arcade_findByIdIndex(LinkedList *pListArcade, int id);
-
-
+int arcade_mostrarJuegos(LinkedList* lista, void (*pFunc)(void*));
+int freeElement(LinkedList* list);
+int arcade_sortArcade(LinkedList* pArrayArcade);
+void printGame(void* juego);
+int arcade_pruebaJuegos(LinkedList* lista);
+void arcade_deleteList(LinkedList* Borrar);
+int arcade_multijugador(void* pArcade);
+void actualizarFichasArcades(void* juego);
 #endif /* ARCADES_H_ */

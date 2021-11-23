@@ -14,13 +14,13 @@
 #define STEREO 1
 #include "Arcades.h"
 
-int arcade_setNombreJuegoFile(Arcade* pArcade,char* nombre);
-int arcade_setNombreSalonFile(Arcade* pArcade,char* nombre);
-int arcade_setNacionalidadFile(Arcade* pArcade,char* nombre);
-int arcade_setIdFile(Arcade* pArcade,char* id);
-int arcade_setCantidadJugadoresFile(Arcade* pArcade,char* cantidad);
-int arcade_setCantidadFichasFile(Arcade* pArcade,char* cantidad);
-int arcade_setSonidoFile(Arcade* pArcade,char* sonido);
+int arcade_getNombreJuegoFile(Arcade* pArcade,char* nombre);
+int arcade_getNombreSalonFile(Arcade* pArcade,char* nombre);
+int arcade_getNacionalidadFile(Arcade* pArcade,char* nombre);
+int arcade_getIdFile(Arcade* pArcade,char* id);
+int arcade_getCantidadJugadoresFile(Arcade* pArcade,char* cantidad);
+int arcade_getCantidadFichasFile(Arcade* pArcade,char* cantidad);
+int arcade_getSonidoFile(Arcade* pArcade,char* sonido);
 int arcade_setNombreJuego(Arcade* pArcade,char* nombre);
 int arcade_setSonido(Arcade* pArcade,int sonido);
 int arcade_setCantidadFichas(Arcade* pArcade,int cantidad);

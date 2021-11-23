@@ -587,7 +587,7 @@ int ll_filter(LinkedList* this, int(*pFunc)(void*))
 	int criterio; // resultado de la funcion criterio
 	if(this!=NULL && pFunc!=NULL) // validamos
 	{
-		for(int i=ll_len(this)-1; i<=0; i--) // recorremos la lista de atras para adelante
+		for(int i=ll_len(this)-1; i>=0; i--) // recorremos la lista de atras para adelante
 		{
 			pElement=ll_get(this, i); // obtenemos el elemento d ela lista en la posicion i
 			criterio=pFunc(pElement); // obtenemos el resultado de la funcion criterio si es 0 borramos -1 dejamos
@@ -596,6 +596,7 @@ int ll_filter(LinkedList* this, int(*pFunc)(void*))
 				ll_remove(this, i); // ELIMINAMOS DE LA LISTA
 			}
 		}
+		returnAux=0;
 
 	}
 	return returnAux;

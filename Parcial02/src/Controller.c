@@ -19,6 +19,7 @@ int controller_loadFromText(char* path , LinkedList* pArrayArcades)
 {
 	int retorno=-1;
 	FILE *fp;
+
 	if(path!=NULL && pArrayArcades!=NULL)
 	{
 		fp = fopen(path, "r");
@@ -41,7 +42,7 @@ int controller_loadFromText(char* path , LinkedList* pArrayArcades)
 }
 
 /** \brief Alta de Arcade
- * \param pArrayListEmployee LinkedList*
+ * \param pArrayList LinkedList*
  * \return int -1 lista LInken List NULL  0 si se creo con Exito -2 si fallo el ingreso de datos
  *
  */
@@ -109,15 +110,17 @@ int controller_removeArcade(LinkedList* pArrayArcade)
 		if(utn_pedirIntPositivoAUsuario(&idFree, 3, "Ingrese Id A Eliminar", "Error")==0)
 		{
 			pArcade=arcade_findById(pArrayArcade, idFree);
-			if (pArcade!=NULL && utn_pedirLetrasAUsuario(letra, 2, 3, "Ingrese S para Confirmar, Cualquier otra Tecla para volver al Inicio", "Volviendo al Inicio")==0)
+			if (pArcade!=NULL)
 			{
-				//printf("parcade %p", pArcade);
-				if(ll_pop(pArrayArcade, ll_indexOf(pArrayArcade, pArcade))==pArcade)
+				if (utn_pedirLetrasAUsuario(letra, 2, 0, "Ingrese S para Confirmar, Cualquier otra Tecla para volver al Inicio", "Volviendo al Inicio")==0)
 				{
-					printf("ELIMINASTE:\n");
-					ImprimirLista(pArcade);
-					free(pArcade);
-					retorno=0;
+					if((letra[0]=='s' || letra[0]=='S') && ll_pop(pArrayArcade, ll_indexOf(pArrayArcade, pArcade))==pArcade)
+					{
+						printf("ELIMINASTE:\n");
+						ImprimirLista(pArcade);
+						free(pArcade);
+						retorno=0;
+					}
 				}
 			}
 			else
@@ -136,40 +139,209 @@ int controller_ListArcade(LinkedList* pArrayArcade)
 	int retorno=-1;
 	if(pArrayArcade!=NULL)
 	{
-		ll_map(pArrayArcade, ImprimirLista);
+		retorno=ll_map(pArrayArcade, ImprimirLista);
+		//retorno=0;
+	}
+	return retorno;
+}
+
+int controller_listJuegos(LinkedList* original)
+{
+	int retorno=-1;
+	LinkedList* NuevaCopia=ll_newLinkedList(); // creamos nueva lista
+	if(original!=NULL && NuevaCopia!=NULL) // verificamos lista no sea null y el puntero a la nueva lista tampoco sea null
+	{
+		NuevaCopia=ll_clone(original); // clonamos la lista a NuevaCopia
+		if(NuevaCopia!=NULL) // SE CREO CORRECTAMENTE?
+		{
+			retorno=arcade_mostrarJuegos(NuevaCopia, printGame);
+
+		}
+		else
+		{
+			printf("sin Memoria Para Realizar la Operacion");
+		}
+	}
+	return retorno;
+}
+
+int controller_editArcade(LinkedList* List)
+{
+	int retorno=-1;
+	char nombre[NOMBREJUEGO_LEN];
+	int cantidad;
+	int menu;
+	int idEdit;
+	//int indexAux;
+	Arcade *pAux;
+	if(List!=NULL)
+	{
+		if(utn_pedirIntPositivoAUsuario(&idEdit, 3, "Ingrese Id A Editar", "Error")==0)
+		{
+			pAux=arcade_findById(List, idEdit);
+    		if (pAux!=0)
+    		{
+
+    			if (utn_pedirIntAUsuarioConLimites(&menu, 1, 2, 3, "Editar:\n1.-Nombre del Juego\n2.-Cantidad Juegadores", "Error de Seleccion")==0)
+				{
+					switch (menu)
+					{
+					case 1:
+						if(controller_listJuegos(List)==0)
+						{
+							if(utn_pedirNombreYApellidoAUsuario(nombre, NOMBREJUEGO_LEN, 3, "Ingrese el Nombre del Juego", "Error")==0)
+							{
+								arcade_setNombreJuego(pAux, nombre);
+								retorno=0;
+							}
+							else
+							{
+								printf("Error al ingresar Nombre");
+							}
+						}
+						break;
+					case 2:
+						if(utn_pedirIntPositivoAUsuario(&cantidad, 3, "Ingrese Cantidad Jugadores", "error")==0)
+						{
+							arcade_setCantidadJugadores(pAux, cantidad);
+							retorno=0;
+						}
+						else
+						{
+							printf("Error al ingresar Horas");
+						}
+						break;
+					}
+
+  				}
+    		}
+    		else
+    		{
+    			printf("id NO existe\n");
+    		}
+		}
+		else
+		{
+			printf("Ingreso Id Invalido Varias Veces\n");
+		}
+	}
+    return retorno;
+}
+
+
+int controller_saveAsText(char* path , LinkedList* pArrayArcade)
+{
+	int retorno=-1;
+	FILE *fp;
+	if(path!=NULL && pArrayArcade!=NULL)
+	{
+		fp=fopen(path, "w");
+		if(fp!=NULL)
+		{
+			parser_saveAsText(fp, pArrayArcade);
+			retorno=0;
+		}
+		else
+		{
+			printf("No se Pudo Crear el Archivo Para Guardar");
+		}
+		fclose(fp);
+	}
+
+	return retorno;
+}
+
+
+int controller_sortArcadeNewList(LinkedList* original)
+{
+	int retorno=-1;
+	LinkedList* NuevaCopia=ll_newLinkedList(); // creamos nueva lista
+	if(original!=NULL && NuevaCopia!=NULL) // verificamos lista no sea null y el puntero a la nueva lista tampoco sea null
+	{
+		NuevaCopia=ll_clone(original); // clonamos la lista a NuevaCopia
+		if(NuevaCopia!=NULL) // SE CREO CORRECTAMENTE?
+		{
+			retorno = arcade_sortArcade(NuevaCopia);
+		}
+		else
+		{
+			printf("sin Memoria Para Realizar la Operacion");
+		}
+	}
+	return retorno;
+}
+/*
+int prueba_punteroFuncion(LinkedList* original, int(*pFun)(LinkedList*))
+{
+	int retorno=-1;
+	LinkedList* NuevaCopia=ll_newLinkedList(); // creamos nueva lista
+	if(original!=NULL && NuevaCopia!=NULL) // verificamos lista no sea null y el puntero a la nueva lista tampoco sea null
+	{
+		NuevaCopia=ll_clone(original); // clonamos la lista a NuevaCopia
+		if(NuevaCopia!=NULL) // SE CREO CORRECTAMENTE?
+		{
+			retorno=pfun(NuevaCopia);
+		}
+		else
+		{
+			printf("sin Memoria Para Realizar la Operacion");
+		}
+	}
+	arcade_deleteList(NuevaCopia);
+	return retorno;
+}
+*/
+
+int controller_savelistJuegos(LinkedList* original)
+{
+	int retorno=-1;
+	LinkedList* NuevaCopia=ll_newLinkedList(); // creamos nueva lista
+	if(original!=NULL && NuevaCopia!=NULL) // verificamos lista no sea null y el puntero a la nueva lista tampoco sea null
+	{
+		NuevaCopia=ll_clone(original); // clonamos la lista a NuevaCopia
+		if(NuevaCopia!=NULL) // SE CREO CORRECTAMENTE?
+		{
+			retorno=arcade_pruebaJuegos(NuevaCopia);
+		}
+		else
+		{
+			printf("sin Memoria Para Realizar la Operacion");
+		}
 	}
 	return retorno;
 }
 
 
-int controller_editArcade(LinkedList* pArrayArcade)
+LinkedList* controller_newListMulti(LinkedList* original)
+{
+	LinkedList* NuevaCopia=ll_newLinkedList(); // creamos nueva lista
+	if(original!=NULL && NuevaCopia!=NULL) // verificamos lista no sea null y el puntero a la nueva lista tampoco sea null
+	{
+		NuevaCopia=ll_clone(original); // clonamos la lista a NuevaCopia
+		if(NuevaCopia!=NULL) // SE CREO CORRECTAMENTE?
+		{
+			//printf("a guardar");
+			if(ll_filter(NuevaCopia, arcade_multijugador)==0)
+			{
+				printf("Filtrado Completo\n");
+			}
+
+		}
+		else
+		{
+			printf("sin Memoria Para Realizar la Operacion");
+		}
+	}
+	return NuevaCopia;
+}
+
+int controller_actualizacion(LinkedList* lista)
 {
 	int retorno=-1;
-	int index;
-	char letra[2];
-	Arcade *pArcade=NULL;
-	if(pArrayArcade!=NULL)
+	if(lista!=NULL)
 	{
-		if(utn_pedirIntPositivoAUsuario(&index, 3, "Ingrese Id A Editar", "Error")==0)
-		{
-			index=arcade_findByIdIndex(pArrayArcade, index);
-			if(index>=0)
-			{
-				pArcade=(Arcade*)ll_get(pArrayArcade, index);
-				if(pArcade!=NULL && )
-				{
-
-				}
-				else
-				{
-					printf("NULL");
-				}
-			}
-			else
-			{
-				printf("Id No Existe");
-			}
-		}
+		ll_map(lista, actualizarFichasArcades);
+		retorno=0;
 	}
 	return retorno;
 }
