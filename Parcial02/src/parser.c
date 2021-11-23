@@ -9,10 +9,10 @@
 
 
 
-/** \brief Parsea los datos los datos de los Arcades desde el archivo data.csv (modo texto).
+/** \brief Parsea los datos los datos de los Arcades desde el archivo arcades.csv (modo texto).
  *
  * \param path char*
- * \param pArrayListEmployee LinkedList*
+ * \param pArrayArcades LinkedList*
  * \return int
  *
  */
@@ -55,11 +55,15 @@ int parser_arcadesFromText(FILE* pFile , LinkedList* pArrayArcades)
 	}
 	return retorno;
 }
-
+/**brief guarda archivo texto
+ *  param *pfile puntero al archivo
+ *  param lista LL
+ * 	return -1 si el puntero o la lista son NULL
+ */
 int parser_saveAsText(FILE* pFile , LinkedList* list)
 {
 	int retorno =-1;
-	Arcade *pArcade;
+	Arcade *pArcade; // puntero Arcade
 	int id;
 	char nacionalidad[NACIONALIDAD_LEN];
 	int sonido;
@@ -71,11 +75,11 @@ int parser_saveAsText(FILE* pFile , LinkedList* list)
 	if(pFile!=NULL && list!=NULL)
 	{
 
-		fprintf(pFile,"id,nacionalidad,tipo_sonido,cant_jug,fichas_max,salon,game\n");
-		for(int i=0; i<ll_len(list); i++)
+		fprintf(pFile,"id,nacionalidad,tipo_sonido,cant_jug,fichas_max,salon,game\n"); // cabecera del archivo
+		for(int i=0; i<ll_len(list); i++) // recorro la lista
 		{
 
-			pArcade=ll_get(list, i);
+			pArcade=ll_get(list, i); //obtengo el elemento del nodo en este index
 			if (pArcade!=NULL)
 			{
 				arcade_getFichas(pArcade, &cantidadFichas);
@@ -85,7 +89,7 @@ int parser_saveAsText(FILE* pFile , LinkedList* list)
 				arcade_getNombreJuego(pArcade, nombreJuego);
 				arcade_getNombreSalon(pArcade, nombreSalon);
 				arcade_getSonido(pArcade, &sonido);
-				if(sonido==STEREO)
+				if(sonido==STEREO) //si es stereo o mono
 				{
 					fprintf(pFile,"%d,%s,STEREO,%d,%d,%s,%s\n",id,nacionalidad,cantidadJugadores,cantidadFichas,nombreSalon,nombreJuego);
 				}
