@@ -59,6 +59,11 @@ int newId(LinkedList* ArrayArcades)
 	return id;
 }
 
+/** brief carga de Arcades desde Archivo
+ *  param id char nacionalidad nombreSalon elementos de Arcade
+ *  param  sonido fichas juego jugadores
+ * 	return Arcade si se creeo bien y NULL si fallo algo
+ */
 Arcade* arcade_newParametros(char* id,char* nacionalidad,char* nombreSalon,char* sonido,char* cantidadFichas,char* nombreJuego,char* cantidadJugadores)
 {
 
@@ -84,6 +89,11 @@ Arcade* arcade_newParametros(char* id,char* nacionalidad,char* nombreSalon,char*
 	return auxArcade;
 }
 
+
+/** brief Muestro la Lista de Arcades geteo todos los campos del arcade recibido y los imprimo ebn pantalla
+ * param puntero a un arcade
+ *
+ */
 void ImprimirLista(void* pArcade)
 {
 	int id;
@@ -102,7 +112,7 @@ void ImprimirLista(void* pArcade)
 	arcade_getNacionalidad(pArcade, nacionalidad);
 	if(sonido==STEREO)
 	{
-		printf("id:%2d nacionalidad:%20s Sonido: STEREO jugadores: %2d Fichas: %2d salon: %8s Juego: %s\n",id,nacionalidad,cantidadJugadores,cantidadFichas,nombreSalon,nombreJuego);
+		printf("id:%3d nacionalidad:%30s Sonido: STEREO jugadores: %2d Fichas: %2d salon: %8s Juego: %s\n",id,nacionalidad,cantidadJugadores,cantidadFichas,nombreSalon,nombreJuego);
 	}
 	else
 	{
@@ -110,6 +120,8 @@ void ImprimirLista(void* pArcade)
 	}
 
 }
+
+
 
 Arcade* arcade_findById(LinkedList *pListArcade, int id)
 {
